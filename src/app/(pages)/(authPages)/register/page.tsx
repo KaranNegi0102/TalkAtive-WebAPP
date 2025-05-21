@@ -39,8 +39,8 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8 shadow-xl rounded-md p-6">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Create your account
@@ -57,7 +57,7 @@ export default function RegisterPage() {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-4 rounded-md shadow-sm">
+            <div className="space-y-4 rounded-md ">
               <div>
                 <label
                   htmlFor="name"
