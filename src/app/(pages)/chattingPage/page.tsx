@@ -7,8 +7,17 @@ import Image from "next/image";
 import profile from "../../../../public/profile.png";
 import FriendsPanel, { Friend } from "./friendsPanel";
 import AddFriendPanel from "./addFriendPanel";
+import VideoChatPanel from "./videoChatPanel";
+import { Video } from "lucide-react";
 
-type SidebarTab = "friends" | "add-friends";
+type SidebarTab = "friends" | "add-friends" | "video-chat";
+
+// Mock friends data - replace with your actual data source
+const mockFriends: Friend[] = [
+  { id: "1", name: "John Doe", status: "online" },
+  { id: "2", name: "Jane Smith", status: "away" },
+  { id: "3", name: "Mike Johnson", status: "offline" },
+];
 
 export default function ChattingPage() {
   const [activeTab, setActiveTab] = useState<SidebarTab | null>(null);
@@ -73,6 +82,16 @@ export default function ChattingPage() {
                 />
               </svg>
             </button>
+            <button
+              onClick={() =>
+                setActiveTab(activeTab === "video-chat" ? null : "video-chat")
+              }
+              className={`p-3 rounded-lg hover:bg-gray-100 transition-colors ${
+                activeTab === "video-chat" ? "bg-gray-100" : ""
+              }`}
+            >
+              <Video className="h-6 w-6" />
+            </button>
           </div>
 
           {/* Panel Content */}
@@ -83,8 +102,13 @@ export default function ChattingPage() {
                   onSelectFriend={handleFriendSelect}
                   selectedFriendId={selectedFriend?.id}
                 />
-              ) : (
+              ) : activeTab === "add-friends" ? (
                 <AddFriendPanel />
+              ) : (
+                <VideoChatPanel
+                  friends={mockFriends}
+                  onLeaveCall={() => setActiveTab(null)}
+                />
               )}
             </div>
           )}
