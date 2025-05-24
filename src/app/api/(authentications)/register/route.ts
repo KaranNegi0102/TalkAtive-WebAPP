@@ -10,9 +10,9 @@ export async function POST(req:NextRequest){
   try{
     const {name,email,password } = await req.json();
   
-   if(!name || !email || !password){
-    return ApiError("All fields are required");
-   }
+    if(!name || !email || !password){
+      return ApiError("All fields are required");
+    }
 
    await connectionDB();
 

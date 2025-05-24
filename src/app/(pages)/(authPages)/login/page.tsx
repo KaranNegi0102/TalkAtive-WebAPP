@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Footer from "@/components/footer";
+import axios from "axios";
 
 type LoginFormData = {
   email: string;
@@ -23,9 +24,18 @@ export default function LoginPage() {
     },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
-    // TODO: Implement actual login logic here
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const response = await axios.post("/api/login", data);
+
+      if (response.data.success) {
+        const userId = response.data.data.userData.userId;
+        console.log("this is userId",userId);
+        
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
