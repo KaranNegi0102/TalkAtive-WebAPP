@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React  from "react";
 import Navbar from "@/components/navbar";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import axios from "axios";
-import { useSocket } from "@/socketProvider/socketProvider";
+import { useSocket } from "@/app/socketProvider/socketProvider";
 import { useRouter } from "next/navigation";
+
+
 
 type LoginFormData = {
   email: string;
@@ -29,9 +31,11 @@ export default function LoginPage() {
     },
   });
 
+
+
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await axios.post("/api/login", data);
+      const response = await axios.post("/api/auth/login", data);
 
       if (response.data.success) {
         const userId = response.data.data.userData.userId;
@@ -40,18 +44,18 @@ export default function LoginPage() {
         // Emit user connected event to socket server
         if (socket) {
           socket.emit("user_connected", { userId });
-          console.log("le bhai systumm set hi  khdeee ")
+          console.log("le bhai systumm set hi  khdeee ");
           console.log("Socket connected for user:", userId);
-
         }
 
         // Redirect to home page or dashboard
-        router.push("/login");
+        router.push("/testingPage");
       }
     } catch (error) {
       console.error("Login error:", error);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 ">

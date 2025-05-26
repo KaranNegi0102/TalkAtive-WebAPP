@@ -7,6 +7,7 @@ interface USER_DATA_TYPE {
   id: string;
   name: string;
   email: string;
+  password: string;
   token: string | null;
 }
 
@@ -26,11 +27,11 @@ const initialState: TYPE_OF_INITIAL_STATE_TYPE = {
   error: null,
 };
 
-const fetchUserData = createAsyncThunk(
+export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/checkUser", {
+      const response = await axios.get("/api/auth/checkUser", {
         withCredentials: true,
       });
   

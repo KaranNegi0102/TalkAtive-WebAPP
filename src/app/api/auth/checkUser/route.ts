@@ -17,7 +17,7 @@ export async function GET(){
 
     const decodedToken = jwt.verify(
       token,
-      process.env.JWT_SECRET_KEY as string
+      process.env.JWT_SECRET as string
     ) as {userId:string , email:string};
 
     const existingUser = await User.findOne({_id:decodedToken.userId});
@@ -30,6 +30,7 @@ export async function GET(){
       userId:existingUser._id,
       name:existingUser.name,
       email:existingUser.email,
+      password:existingUser.password,
     }
 
     return ApiSuccess("user found successfully",UserDataDetails,200);
