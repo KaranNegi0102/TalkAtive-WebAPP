@@ -4,9 +4,10 @@ import User from "@/app/utils/models/userModel";
 import {ApiError,ApiSuccess} from "@/app/services/apiResponse";
 import jwt from "jsonwebtoken";
 
-export async function POST(req:NextRequest){
-  try{
 
+export async function POST(req:NextRequest){
+  
+  try{
     await connectionDB();
 
     const {email,password} = await req.json();

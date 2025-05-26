@@ -23,6 +23,8 @@ export const initializeSocket = (server) => {
       io.emit("user_joined", { userId });
     });
 
+    
+
     // Handle disconnection
     socket.on("disconnect", () => {
       // Find and remove the disconnected user
