@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import axios from "axios";
+import { useSocket } from "@/socketProvider/socketProvider";
+import { useRouter } from "next/navigation";
 
 type LoginFormData = {
   email: string;
@@ -13,6 +15,9 @@ type LoginFormData = {
 };
 
 export default function LoginPage() {
+  const { socket } = useSocket();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -30,8 +35,18 @@ export default function LoginPage() {
 
       if (response.data.success) {
         const userId = response.data.data.userData.userId;
-        console.log("this is userId",userId);
-        
+        console.log("this is userId", userId);
+
+        // Emit user connected event to socket server
+        if (socket) {
+          socket.emit("user_connected", { userId });
+          console.log("le bhai systumm set hi  khdeee ")
+          console.log("Socket connected for user:", userId);
+
+        }
+
+        // Redirect to home page or dashboard
+        router.push("/login");
       }
     } catch (error) {
       console.error("Login error:", error);
