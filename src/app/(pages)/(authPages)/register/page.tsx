@@ -10,7 +10,7 @@ import axios from "axios";
 type RegisterFormData = {
   name: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 };
@@ -25,7 +25,7 @@ export default function RegisterPage() {
     defaultValues: {
       name: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
@@ -130,17 +130,17 @@ export default function RegisterPage() {
               {/* phone number */}
               <div>
                 <label
-                  htmlFor="phoneNumber"
+                  htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Phone Number
                 </label>
                 <input
-                  id="phoneNumber"
+                  id="phone"
                   type="text"
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"  
                   placeholder="Enter your phone number"
-                  {...register("phoneNumber", {
+                  {...register("phone", {
                     required: "Phone number is required",
                   })}
                 />

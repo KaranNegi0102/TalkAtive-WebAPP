@@ -18,6 +18,7 @@ export default function TestingPage() {
       {/* fetching user data after login */}
       {isLoggedIn && <h1>User is logged in</h1>}
       {userData && <h1>User data: {userData.data.name}</h1>}
+      {userData && <h1>User data: {userData.data.phone}</h1>}
 
     </div>
   )

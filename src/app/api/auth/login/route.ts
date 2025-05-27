@@ -1,8 +1,8 @@
 import {NextRequest} from "next/server";
 import connectionDB from "@/app/utils/dataBase/dbConnection";
-import User from "@/app/utils/models/userModel";
 import {ApiError,ApiSuccess} from "@/app/services/apiResponse";
 import jwt from "jsonwebtoken";
+import BaseModel from '@/app/utils/models/baseModel';
 
 
 export async function POST(req:NextRequest){
@@ -16,7 +16,7 @@ export async function POST(req:NextRequest){
       return ApiError("All fields are required");
     }
 
-    const existingUser = await User.findOne({email});
+    const existingUser = await BaseModel.findOne({email});
 
     if(!existingUser){
       return ApiError("User not found");
