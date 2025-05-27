@@ -8,7 +8,7 @@ import User from "@/app/utils/models/userModel";
 export async function POST(req:NextRequest){
 
   try{
-    const {name,email,password } = await req.json();
+    const {name,email,password} = await req.json();
   
     if(!name || !email || !password){
       return ApiError("All fields are required");
@@ -31,6 +31,8 @@ export async function POST(req:NextRequest){
    return ApiSuccess("User created successfully",
     {userId:newUser._id},
     201);
+
+
 
    }catch(error){
     console.log("error in register route -> ",error);

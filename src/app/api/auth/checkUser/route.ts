@@ -22,6 +22,8 @@ export async function GET(){
 
     const existingUser = await User.findOne({_id:decodedToken.userId});
 
+    console.log("existingUser --> ",existingUser);
+
     if(!existingUser){
       return ApiError("Unauthorized",401);
     }
@@ -31,6 +33,7 @@ export async function GET(){
       name:existingUser.name,
       email:existingUser.email,
       password:existingUser.password,
+      phoneNumber:existingUser.phoneNumber,
     }
 
     return ApiSuccess("user found successfully",UserDataDetails,200);

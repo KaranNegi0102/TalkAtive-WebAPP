@@ -5,10 +5,12 @@ import Navbar from "@/components/navbar";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Footer from "@/components/footer";
+import axios from "axios";
 
 type RegisterFormData = {
   name: string;
   email: string;
+  phoneNumber: string;
   password: string;
   confirmPassword: string;
 };
@@ -23,6 +25,7 @@ export default function RegisterPage() {
     defaultValues: {
       name: "",
       email: "",
+      phoneNumber: "",
       password: "",
       confirmPassword: "",
     },
@@ -30,9 +33,21 @@ export default function RegisterPage() {
 
   const password = watch("password");
 
-  const onSubmit = (data: RegisterFormData) => {
+  const onSubmit = async (data: RegisterFormData) => {
     console.log(data);
     // TODO: Implement actual registration logic here
+
+    try{
+      const response = await axios.post("/api/auth/register",data);
+
+      console.log("response in register page --> ",response);
+      
+      if(response.data.success){
+        console.log("User registered successfully");
+      }
+    }catch(error){
+      console.log(error);
+    }
   };
 
   return (
@@ -111,6 +126,25 @@ export default function RegisterPage() {
                   </p>
                 )}
               </div>
+
+              {/* phone number */}
+              <div>
+                <label
+                  htmlFor="phoneNumber"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone Number
+                </label>
+                <input
+                  id="phoneNumber"
+                  type="text"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"  
+                  placeholder="Enter your phone number"
+                  {...register("phoneNumber", {
+                    required: "Phone number is required",
+                  })}
+                />
+              </div>      
 
               <div>
                 <label

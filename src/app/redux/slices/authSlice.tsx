@@ -8,6 +8,7 @@ interface USER_DATA_TYPE {
   name: string;
   email: string;
   password: string;
+  phoneNumber: string;
   token: string | null;
 }
 
