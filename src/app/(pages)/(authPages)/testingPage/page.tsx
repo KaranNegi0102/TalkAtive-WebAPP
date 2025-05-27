@@ -1,16 +1,15 @@
 "use client";
-import React , {useEffect} from 'react'
-import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks'
-import { fetchUserData } from '@/app/redux/slices/authSlice'
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
+import { fetchUserData } from "@/app/redux/slices/authSlice";
 
 export default function TestingPage() {
-
   const dispatch = useAppDispatch();
-  const { isLoggedIn ,userData } = useAppSelector((state:any)=>state.auth);
+  const { isLoggedIn, userData } = useAppSelector((state: any) => state.auth);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchUserData());
-  },[dispatch])
+  }, [dispatch]);
 
   return (
     <div>
@@ -19,7 +18,7 @@ export default function TestingPage() {
       {isLoggedIn && <h1>User is logged in</h1>}
       {userData && <h1>User data: {userData.data.name}</h1>}
       {userData && <h1>User data: {userData.data.phone}</h1>}
-
+      
     </div>
-  )
+  );
 }

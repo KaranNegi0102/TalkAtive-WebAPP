@@ -34,18 +34,16 @@ export default function RegisterPage() {
   const password = watch("password");
 
   const onSubmit = async (data: RegisterFormData) => {
-    console.log(data);
-    // TODO: Implement actual registration logic here
+    // console.log(data);
+    try {
+      const response = await axios.post("/api/auth/register", data);
 
-    try{
-      const response = await axios.post("/api/auth/register",data);
+      console.log("response in register page --> ", response);
 
-      console.log("response in register page --> ",response);
-      
-      if(response.data.success){
+      if (response.data.success) {
         console.log("User registered successfully");
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
   };
@@ -138,13 +136,13 @@ export default function RegisterPage() {
                 <input
                   id="phone"
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"  
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Enter your phone number"
                   {...register("phone", {
                     required: "Phone number is required",
                   })}
                 />
-              </div>      
+              </div>
 
               <div>
                 <label

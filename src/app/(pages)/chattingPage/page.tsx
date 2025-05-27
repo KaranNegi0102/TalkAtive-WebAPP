@@ -1,5 +1,4 @@
 "use client";
-
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import React, { useState } from "react";
@@ -9,6 +8,7 @@ import FriendsPanel, { Friend } from "./friendsPanel";
 import AddFriendPanel from "./addFriendPanel";
 import VideoChatPanel from "./videoChatPanel";
 import { Video } from "lucide-react";
+import UserProfileDetails from "@/components/chattingPageComponents/UserProfileDetails";
 
 type SidebarTab = "friends" | "add-friends" | "video-chat";
 
@@ -30,6 +30,8 @@ export default function ChattingPage() {
   return (
     <div>
       <Navbar />
+
+      <UserProfileDetails />
 
       <div className="bg-blue-50 flex">
         {/* Sidebar */}

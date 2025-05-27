@@ -1,7 +1,8 @@
 import {ApiSuccess , ApiError} from "@/app/services/apiResponse";
 import {NextRequest} from "next/server";
 import connectionDB from "@/app/utils/dataBase/dbConnection"
-import BaseModel from "@/app/utils/models/baseModel"; 
+import UserModelFinal from './../../../utils/models/userModelaFinal';
+
 
 
 
@@ -18,32 +19,25 @@ export async function POST(req:NextRequest){
 
    await connectionDB();
 
-    const existingUser = await BaseModel.findOne({email});
+    const existingUser = await UserModelFinal.findOne({email});
 
    if(existingUser){
     return ApiError("User already exists");
    }
 
-   const newUser = await BaseModel.create({
+   const newUser = await UserModelFinal.create({
     name,
     email,
     password,
-    phone
+    phone,
    })
 
-   return ApiSuccess("User created successfully",
-    {userId:newUser._id,phone:newUser.phone},
+    return ApiSuccess("User created successfully",
+    {userId:newUser._id },
     201);
 
-
-
-   }catch(error){
+  }catch(error){
     console.log("error in register route -> ",error);
     return ApiError("Internal server error");
-   }
-
-
-
-
-
+  }
 }

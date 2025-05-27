@@ -9,6 +9,7 @@ interface USER_DATA_TYPE {
   email: string;
   password: string;
   phone: string;
+  friends: [] | null,
   token: string | null;
 }
 
@@ -78,7 +79,7 @@ const authSlice = createSlice({
           state.loading = false;
           state.isLoggedIn = true;
           state.userData = action.payload;
-          console.log("fetching user data in fulfilled state");
+          console.log("fetching user data in fulfilled state",action.payload);
         }
       )
       .addCase(
