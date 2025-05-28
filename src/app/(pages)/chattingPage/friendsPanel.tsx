@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "../../../../public/profile.png";
 import { useAppSelector } from "@/app/hooks/hooks";
+import axios from "axios";
 
 export type Friend = {
   _id: string;
@@ -25,17 +26,30 @@ export default function FriendsPanel({
   selectedFriendId,
 }: FriendsPanelProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [friends, setFriends] = useState<Friend[]>([]);
+  const [loading, setLoading] = useState(true);
   const { userData } = useAppSelector((state: any) => state.auth);
 
-  // Transform userData.friends into the Friend type
-  const friends: Friend[] =
-    userData?.data?.friends?.map((friend: any) => ({
-      _id: friend._id,
-      name: friend.name,
-      status: "offline", // Default status, you can update this based on your logic
-      email: friend.email,
-      phone: friend.phone,
-    })) || [];
+  useEffect(() => {
+    const fetchFriends = async () => {
+      try {
+        if (userData?.data?.userId) {
+          const response = await axios.get(
+            `/api/chatPageApis/getUserFriends?userId=${userData.data.userId}`
+          );
+          if (response.data.success) {
+            setFriends(response.data.data);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching friends:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFriends();
+  }, [userData]);
 
   const filteredFriends = friends.filter((friend) =>
     friend.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -51,6 +65,14 @@ export default function FriendsPanel({
         return "bg-gray-400";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex flex-col">

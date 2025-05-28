@@ -19,15 +19,14 @@ export default function AddFriendPanel() {
   const [users, setUsers] = useState<User[]>([]);
 
   const { userData } = useAppSelector((state: any) => state.auth);
-  console.log("this is userData in addFriend panel", userData);
-
+  console.log("this is userData in addFriend panel", userData.data);
 
   //getting the users
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get("/api/chatPageApis/getUsers");
-        console.log("this is response", response);
+        // console.log("this is response", response);
 
         if (response.data.success) {
           // Filter out the logged-in user from the list
@@ -66,12 +65,24 @@ export default function AddFriendPanel() {
   //   },
   // ];
 
+  async function addFriend(receiverId: string) {
+    try {
+      const response = await axios.post("/api/chatPageApis/addfriendApi", {
+        senderId: userData?.data?.userId,
+        receiverId: receiverId,
+      });
+      console.log("this is response->",response)
 
-  function addFriend(userId:._id){
-
-
+      if (response.data.success) {
+        alert("Friend request sent successfully!");
+      } else {
+        alert(response.data.message || "Failed to send friend request");
+      }
+    } catch (error: any) {
+      console.error("Error sending friend request:", error);
+      alert(error.response?.data?.message || "Failed to send friend request");
+    }
   }
-
 
   const filteredFriends = users.filter(
     (user) =>

@@ -1,7 +1,7 @@
 import {cookies} from "next/headers";
 import jwt from "jsonwebtoken";
 import connectionDB from "@/app/utils/dataBase/dbConnection";
-import UserModelFinal from "@/app/utils/models/userModelaFinal";
+import User from "@/app/utils/models/UserSchema";
 import { ApiError, ApiSuccess } from "@/app/services/apiResponse";
 
 export async function GET(){
@@ -20,9 +20,9 @@ export async function GET(){
       process.env.JWT_SECRET as string
     ) as {userId:string , email:string};
 
-    const existingUser = await UserModelFinal.findOne({_id:decodedToken.userId});
+    const existingUser = await User.findOne({_id:decodedToken.userId});
 
-    console.log("existingUser --> ",existingUser.friends);
+    // console.log("existingUser --> ",existingUser.friends);
 
     if(!existingUser){
       return ApiError("Unauthorized",401);
@@ -34,7 +34,6 @@ export async function GET(){
       email:existingUser.email,
       password:existingUser.password,
       phone:existingUser.phone,
-      friends:existingUser.friends
     }
 
     return ApiSuccess("user found successfully",UserDataDetails,200);

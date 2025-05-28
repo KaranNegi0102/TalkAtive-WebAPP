@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      required: true,
       unique: true,
     },
     password: {
@@ -17,13 +18,17 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "Friend" }],
+    status: {
+      type: String,
+      enum: ['online', 'offline', 'busy'],
+      default: 'offline', // Updated via WebSocket
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const UserModelFinal =
-  mongoose.models.UserModelFinal || mongoose.model("User", UserSchema);
-export default UserModelFinal;
+
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+export default User;

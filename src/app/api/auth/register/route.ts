@@ -1,17 +1,14 @@
 import {ApiSuccess , ApiError} from "@/app/services/apiResponse";
 import {NextRequest} from "next/server";
 import connectionDB from "@/app/utils/dataBase/dbConnection"
-import UserModelFinal from './../../../utils/models/userModelaFinal';
-
-
-
+import User from "@/app/utils/models/UserSchema";
 
 export async function POST(req:NextRequest){
 
   try{
     const {name,email,password,phone} = await req.json();
   
-    console.log("phone",phone);
+    // console.log("phone",phone);
 
     if(!name || !email || !password || !phone){
       return ApiError("All fields are required");
@@ -19,13 +16,16 @@ export async function POST(req:NextRequest){
 
    await connectionDB();
 
-    const existingUser = await UserModelFinal.findOne({email});
+  //  console.log("yaha tak chal rha kya ?")
+    const existingUser = await User.findOne({email});
+    console.log(existingUser);
 
+  
    if(existingUser){
     return ApiError("User already exists");
    }
 
-   const newUser = await UserModelFinal.create({
+   const newUser = await User.create({
     name,
     email,
     password,

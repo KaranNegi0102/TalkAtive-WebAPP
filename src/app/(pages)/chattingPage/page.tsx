@@ -9,6 +9,7 @@ import AddFriendPanel from "./addFriendPanel";
 import VideoChatPanel from "./videoChatPanel";
 import { Video } from "lucide-react";
 import UserProfileDetails from "@/components/chattingPageComponents/UserProfileDetails";
+import RequestNotification from "./requestNotification";
 
 type SidebarTab = "friends" | "add-friends" | "video-chat";
 
@@ -38,6 +39,7 @@ export default function ChattingPage() {
         <div className="flex h-[calc(100vh-100px)] mt-4">
           {/* Vertical Navigation */}
           <div className="bg-white p-2 flex flex-col gap-2">
+            <RequestNotification />
             <button
               onClick={() =>
                 setActiveTab(activeTab === "friends" ? null : "friends")
