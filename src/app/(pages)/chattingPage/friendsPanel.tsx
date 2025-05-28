@@ -3,13 +3,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import profile from "../../../../public/profile.png";
+import { useAppSelector } from "@/app/hooks/hooks";
 
 export type Friend = {
-  id: string;
+  _id: string;
   name: string;
   status: "online" | "offline" | "away";
   lastSeen?: string;
   unreadCount?: number;
+  email?: string;
+  phone?: string;
 };
 
 type FriendsPanelProps = {
@@ -22,15 +25,17 @@ export default function FriendsPanel({
   selectedFriendId,
 }: FriendsPanelProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const { userData } = useAppSelector((state: any) => state.auth);
 
-  // Mock data for friends
-  const friends: Friend[] = [
-    { id: "1", name: "John Doe", status: "online", unreadCount: 3 },
-    { id: "2", name: "Alice Smith", status: "away", lastSeen: "2m ago" },
-    { id: "3", name: "Bob Johnson", status: "offline", lastSeen: "1h ago" },
-    { id: "4", name: "Emma Wilson", status: "online" },
-    { id: "5", name: "Michael Brown", status: "offline", lastSeen: "5h ago" },
-  ];
+  // Transform userData.friends into the Friend type
+  const friends: Friend[] =
+    userData?.data?.friends?.map((friend: any) => ({
+      _id: friend._id,
+      name: friend.name,
+      status: "offline", // Default status, you can update this based on your logic
+      email: friend.email,
+      phone: friend.phone,
+    })) || [];
 
   const filteredFriends = friends.filter((friend) =>
     friend.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -88,10 +93,10 @@ export default function FriendsPanel({
         {filteredFriends.length > 0 ? (
           filteredFriends.map((friend) => (
             <div
-              key={friend.id}
+              key={friend._id}
               onClick={() => onSelectFriend(friend)}
               className={`p-4 hover:bg-gray-50 transition-colors cursor-pointer border-b border-gray-100 ${
-                selectedFriendId === friend.id ? "bg-blue-50" : ""
+                selectedFriendId === friend._id ? "bg-blue-50" : ""
               }`}
             >
               <div className="flex items-center justify-between">
@@ -110,8 +115,8 @@ export default function FriendsPanel({
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900">{friend.name}</h3>
-                    {friend.lastSeen && (
-                      <p className="text-sm text-gray-500">{friend.lastSeen}</p>
+                    {friend.email && (
+                      <p className="text-sm text-gray-500">{friend.email}</p>
                     )}
                   </div>
                 </div>

@@ -1,45 +1,83 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import profile from "../../../../public/profile.png";
+import axios from "axios";
+import { useAppSelector } from "@/app/hooks/hooks";
 
 type User = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  status: "online" | "offline";
+  status?: "online" | "offline";
+  phone?: string;
 };
 
 export default function AddFriendPanel() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [users, setUsers] = useState<User[]>([]);
 
-  // Mock data for potential friends
-  const potentialFriends: User[] = [
-    {
-      id: "1",
-      name: "Alice Smith",
-      email: "alice@example.com",
-      status: "online",
-    },
-    {
-      id: "2",
-      name: "Bob Johnson",
-      email: "bob@example.com",
-      status: "offline",
-    },
-    {
-      id: "3",
-      name: "Carol White",
-      email: "carol@example.com",
-      status: "online",
-    },
-  ];
+  const { userData } = useAppSelector((state: any) => state.auth);
+  console.log("this is userData in addFriend panel", userData);
 
-  const filteredFriends = potentialFriends.filter(
+
+  //getting the users
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("/api/chatPageApis/getUsers");
+        console.log("this is response", response);
+
+        if (response.data.success) {
+          // Filter out the logged-in user from the list
+          const filteredUsers = response.data.data.filter(
+            (user: User) => user.email !== userData?.data?.email
+          );
+          setUsers(filteredUsers);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUser();
+  }, [userData]);
+
+  // // Mock data for potential friends
+  // const potentialFriends: User[] = [
+  //   {
+  //     id: "1",
+  //     name: "Alice Smith",
+  //     email: "alice@example.com",
+  //     status: "online",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Bob Johnson",
+  //     email: "bob@example.com",
+  //     status: "offline",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Carol White",
+  //     email: "carol@example.com",
+  //     status: "online",
+  //   },
+  // ];
+
+
+  function addFriend(userId:._id){
+
+
+  }
+
+
+  const filteredFriends = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      (user.email &&
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -64,7 +102,7 @@ export default function AddFriendPanel() {
         {filteredFriends.length > 0 ? (
           filteredFriends.map((user) => (
             <div
-              key={user.id}
+              key={user._id}
               className="p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center justify-between">
@@ -92,7 +130,8 @@ export default function AddFriendPanel() {
                   className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                   onClick={() => {
                     // TODO: Implement add friend functionality
-                    console.log("Add friend:", user.id);
+                    console.log("Add friend:", user._id);
+                    addFriend(user._id);
                   }}
                 >
                   Add
