@@ -24,9 +24,12 @@ export default function RequestNotification() {
 
   const fetchRequests = async () => {
     try {
+      console.log("yaha tak chal rha ??");
       const response = await axios.get(
         `/api/chatPageApis/getFriendRequests?userId=${userData?.data?.userId}`
       );
+      console.log("fetch request response -> ", response);
+
       if (response.data.success) {
         setRequests(response.data.data);
       }
@@ -49,6 +52,8 @@ export default function RequestNotification() {
           requestId,
         }
       );
+      console.log("this is response in notification", response);
+
       if (response.data.success) {
         fetchRequests(); // Refresh the requests list
       }

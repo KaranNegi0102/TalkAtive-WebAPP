@@ -1,16 +1,14 @@
-import { NextResponse } from "next/server";
 import connectionDB from "@/app/utils/dataBase/dbConnection";
 import FriendRequest from "@/app/utils/models/FriendRequest";
+import { ApiError,ApiSuccess } from "@/app/services/apiResponse";
+
 
 export async function POST(req: Request) {
   try {
     const { requestId } = await req.json();
 
     if (!requestId) {
-      return NextResponse.json(
-        { success: false, message: "Request ID is required" },
-        { status: 400 }
-      );
+      return ApiError("Request ID is required");
     }
 
     await connectionDB();
@@ -19,35 +17,21 @@ export async function POST(req: Request) {
     const friendRequest = await FriendRequest.findById(requestId);
 
     if (!friendRequest) {
-      return NextResponse.json(
-        { success: false, message: "Friend request not found" },
-        { status: 404 }
-      );
+      return ApiError("Friend request not found");
     }
 
     if (friendRequest.status !== "pending") {
-      return NextResponse.json(
-        { success: false, message: "Friend request is not pending" },
-        { status: 400 }
-      );
+      return ApiError("Friend request is not pending");
     }
 
     // Update the friend request status to rejected
     friendRequest.status = "rejected";
     await friendRequest.save();
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Friend request rejected successfully",
-      },
-      { status: 200 }
-    );
+    return ApiSuccess("Friend request rejected successfully");
+
   } catch (error: any) {
     console.error("Error in reject friend request:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    return ApiError(error.message);
   }
 }

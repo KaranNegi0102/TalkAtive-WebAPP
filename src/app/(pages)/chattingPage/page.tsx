@@ -104,7 +104,7 @@ export default function ChattingPage() {
               {activeTab === "friends" ? (
                 <FriendsPanel
                   onSelectFriend={handleFriendSelect}
-                  selectedFriendId={selectedFriend?.id}
+                  selectedFriendId={selectedFriend?._id}
                 />
               ) : activeTab === "add-friends" ? (
                 <AddFriendPanel />

@@ -25,22 +25,22 @@ export default function AddFriendPanel() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("/api/chatPageApis/getUsers");
-        // console.log("this is response", response);
+        const response = await axios.get(
+          `/api/chatPageApis/getUsers?userId=${userData?.data?.userId}`
+        );
+        console.log("this is reponse ",response)
 
         if (response.data.success) {
-          // Filter out the logged-in user from the list
-          const filteredUsers = response.data.data.filter(
-            (user: User) => user.email !== userData?.data?.email
-          );
-          setUsers(filteredUsers);
+          setUsers(response.data.data);
         }
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchUser();
+    if (userData?.data?.userId) {
+      fetchUser();
+    }
   }, [userData]);
 
   // // Mock data for potential friends
@@ -71,7 +71,7 @@ export default function AddFriendPanel() {
         senderId: userData?.data?.userId,
         receiverId: receiverId,
       });
-      console.log("this is response->",response)
+      console.log("this is response->", response);
 
       if (response.data.success) {
         alert("Friend request sent successfully!");

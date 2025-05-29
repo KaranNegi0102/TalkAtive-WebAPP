@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { ApiError , ApiSuccess } from "@/app/services/apiResponse";
 import connectionDB from "@/app/utils/dataBase/dbConnection";
 import FriendRequest from "@/app/utils/models/FriendRequest";
 import Friend from "@/app/utils/models/Friend";
@@ -10,10 +10,7 @@ export async function POST(req: Request) {
 
 
     if (!senderId || !receiverId) {
-      return NextResponse.json(
-        { success: false, message: "Missing required fields" },
-        { status: 400 }
-      );
+      return ApiError("Missing required fields");
     }
 
     await connectionDB();
@@ -27,10 +24,7 @@ export async function POST(req: Request) {
     });
 
     if (existingRequest) {
-      return NextResponse.json(
-        { success: false, message: "Friend request already exists" },
-        { status: 400 }
-      );
+      return ApiError("Friend request already exists");
     }
 
     // Check if they are already friends
@@ -42,10 +36,7 @@ export async function POST(req: Request) {
     });
 
     if (existingFriendship) {
-      return NextResponse.json(
-        { success: false, message: "Users are already friends" },
-        { status: 400 }
-      );
+      return ApiError("Users are already friends");
     }
 
     // Create new friend request
@@ -55,19 +46,13 @@ export async function POST(req: Request) {
       status: "pending",
     });
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Friend request sent successfully",
-        data: friendRequest,
-      },
-      { status: 201 }
+    return ApiSuccess(
+      "Friend request sent successfully",
+      {data:friendRequest},
     );
   } catch (error: any) {
     console.error("Error in add friend API:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    return ApiError(
+      { success: false, message: error.message });
   }
 }
