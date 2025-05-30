@@ -12,16 +12,10 @@ const messageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    content: {
+    message: {
       type: String,
       required: true,
     },
-    messageType: {
-      type: String,
-      enum: ["text", "image", "file"],
-      default: "text",
-    },
-
     timestamp: {
       type: Date,
       default: Date.now,
@@ -32,6 +26,5 @@ const messageSchema = new mongoose.Schema(
   }
 );
 
-const Message = mongoose.model("Message", messageSchema);
-
-module.exports = Message;
+const Message = mongoose.models.Message || mongoose.model("Message", messageSchema);
+export default Message;

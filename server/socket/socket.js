@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import User from "../../src/app/utils/models/UserSchema.js";
+import Message from "../../src/app/utils/models/Message.js"
 
 export const initializeSocket = (server) => {
   const io = new Server(server, {
@@ -42,7 +43,40 @@ export const initializeSocket = (server) => {
       }
     });
 
-    // Handle explicit user disconnection yeh lagega logout function par 
+    // Handle sending messages
+    socket.on("send_message", async ({ senderId, receiverId, message }) => {
+      try {
+        // Create new message in database
+        const newMessage = await Message.create({
+          sender: senderId,
+          receiver: receiverId,
+          message,
+          timestamp: new Date(),
+        });
+
+        // Get receiver's socket ID
+        const receiverSocketId = connectedUsers.get(receiverId);
+
+        // If receiver is online, send message to them
+        if (receiverSocketId) {
+          io.to(receiverSocketId).emit("receive_message", {
+            message: newMessage,
+          });
+        }
+
+        // Send confirmation to sender
+        socket.emit("message_sent", {
+          message: newMessage,
+        });
+      } catch (error) {
+        console.error("Error sending message:", error);
+        socket.emit("message_error", {
+          error: "Failed to send message",
+        });
+      }
+    });
+
+    // Handle explicit user disconnection
     socket.on("user_disconnected", async ({ userId }) => {
       try {
         if (!userId) {
@@ -79,8 +113,6 @@ export const initializeSocket = (server) => {
             // Broadcast user left and status change
             io.emit("user_left", { userId });
             io.emit("user_status_changed", { userId, status: "offline" });
-
-
           } catch (error) {
             console.error("Error updating user status on disconnect:", error);
           }
