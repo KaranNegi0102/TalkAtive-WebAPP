@@ -18,7 +18,7 @@ export default function AddFriendPanel() {
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState<User[]>([]);
 
-  const { userData } = useAppSelector((state: any) => state.auth);
+  const { userData } = useAppSelector((state: any) => state.auth);                        //#f7f7f7 #333234
   console.log("this is userData in addFriend panel", userData.data);
 
   //getting the users
@@ -92,9 +92,9 @@ export default function AddFriendPanel() {
   );
 
   return (
-    <div className="w-full  bg-white">
+    <div className="w-full h-full bg-[#f7f7f7]">
       <div className="p-4 border-b border-gray-200">
-        <h1 className="text-2xl text-black font-bold">Add Friends</h1>
+        <h1 className="text-2xl text-[#333234] font-bold">Add Friends</h1>
       </div>
 
       {/* Search bar */}
@@ -104,17 +104,17 @@ export default function AddFriendPanel() {
           placeholder="Search by name or email"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full text-black p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+          className="w-full bg-white text-black p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500"
         />
       </div>
 
       {/* List of potential friends */}
-      <div className="overflow-y-auto h-[calc(100%-120px)]">
+      <div className="overflow-y-auto p-1 h-full">
         {filteredFriends.length > 0 ? (
           filteredFriends.map((user) => (
             <div
               key={user._id}
-              className="p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors"
+              className="p-4 border-b mt-2 rounded-full border-gray-900 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -134,11 +134,13 @@ export default function AddFriendPanel() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                    <p className="text-sm text-gray-500">{user.email}</p>
+                    {/* <p className="text-sm text-gray-500">{user.email}</p> */}
+                    <p className="text-sm text-gray-500">{user.phone}</p>
+                    
                   </div>
                 </div>
                 <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-[#333234] text-white rounded-md hover:bg-black cursor-pointer transition-colors"
                   onClick={() => {
                     // TODO: Implement add friend functionality
                     console.log("Add friend:", user._id);

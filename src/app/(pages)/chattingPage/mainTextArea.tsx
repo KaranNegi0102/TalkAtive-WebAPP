@@ -15,9 +15,8 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
   const { sendMessage, messages } = useSocket();
   const { userData } = useAppSelector((state: any) => state.auth);
 
+  console.log("this is selectedFriend ", selectedFriend);
 
-  console.log("this is selectedFriend ",selectedFriend);
-  
   // Filter messages for current chat
   const chatMessages = messages.filter(
     (msg) =>
@@ -41,35 +40,41 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
   };
 
   return (
-    <div className="flex-1 p-2 border-2 border-red-500 mt-4 flex flex-col h-[calc(100vh-100px)]">
-      <div className="flex items-center gap-2 border-4 border-black">
+    <div className="flex-1  bg-[#f7f7f7] p-2  rounded-md flex flex-col  h-full">
+      <div className="flex shadow-xl rounded-full  items-center p-2 gap-2 ">
         <Image
           src={profile}
           alt={selectedFriend?.name || "Select a friend"}
           className="w-10 h-10 rounded-full"
         />
-        <label className="text-lg text-black font-bold">
-          {selectedFriend?.name || "Select a friend"}
-        </label>
-        {selectedFriend?.status && (
-          <span
-            className={`ml-2 text-sm ${
-              selectedFriend.status === "online"
-                ? "text-green-500"
-                : selectedFriend.status === "away"
-                ? "text-yellow-500"
-                : "text-gray-500"
-            }`}
-          >
-            {selectedFriend.status}
-          </span>
-        )}
+        <div className="flex flex-col">
+          <label className="text-lg text-black font-bold">
+            {selectedFriend?.name || "Select a friend"}
+          </label>
+          {selectedFriend?.status && (
+            <span
+              className={`text-xs ${
+                selectedFriend.status === "online"
+                  ? "text-green-500"
+                  : selectedFriend.status === "away"
+                  ? "text-yellow-500"
+                  : "text-gray-500"
+              }`}
+            >
+              {selectedFriend.status}
+            </span>
+          )}
+          {/* <label className="text-xs text-gray-500">
+            {selectedFriend?.phone || "Select a friend"}
+          </label> */}
+        </div>
       </div>
 
+      {/* //#f7f7f7 #333234 */}
       {/* chatting area where the messages will be shown */}
-      <div className="flex-1 overflow-y-auto px-4 mt-4">
+      <div className="flex-1  overflow-y-auto px-2 mt-4">
         {selectedFriend ? (
-          <div className="flex flex-col gap-2">
+          <div className="flex  flex-col gap-2">
             {chatMessages.map((msg) => (
               <div
                 key={msg._id}
@@ -82,12 +87,12 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
                 <div
                   className={`max-w-[70%] rounded-lg p-3 ${
                     msg.sender === userData?.data?.userId
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 text-black"
+                      ? "bg-[#333234] text-white"
+                      : "bg-white text-black"
                   }`}
                 >
                   <p>{msg.message}</p>
-                  <span className="text-xs opacity-70">
+                  <span className="text-xs  opacity-70">
                     {new Date(msg.timestamp).toLocaleTimeString()}
                   </span>
                 </div>
@@ -105,7 +110,7 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
       {/* input box for the message */}
       <form
         onSubmit={handleSendMessage}
-        className="px-4 py-4 border-t border-gray-200"
+        className="py-4 border-t-2 border-gray-200"
       >
         <div className="flex gap-2">
           <input
@@ -116,12 +121,12 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
               selectedFriend ? "Type a message..." : "Select a friend to chat"
             }
             disabled={!selectedFriend}
-            className="w-full text-black p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full text-black p-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-[#333234] disabled:bg-gray-100 disabled:cursor-not-allowed"
           />
           <button
             type="submit"
             disabled={!selectedFriend || !messageInput.trim()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-[#333234] text-white px-4 py-2 rounded-md cursor-pointer hover:bg-black transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             Send
           </button>

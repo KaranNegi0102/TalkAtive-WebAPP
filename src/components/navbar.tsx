@@ -32,7 +32,7 @@ export default function Navbar() {
             (isScrolled
               ? "bg-white/80 backdrop-blur-md shadow-lg"
               : "bg-transparent")
-          : "bg-white shadow-lg"
+          : "bg-[#333234] shadow-lg"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,7 +40,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-2xl font-bold text-blue-600 hover:text-blue-700"
+              className="text-2xl font-bold text-white hover:text-white"
             >
               TalkAtive
             </Link>
@@ -48,13 +48,13 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               href="/login"
-              className="text-gray-900 hover:text-blue-600 font-medium"
+              className="text-white hover:text-blue-600 font-medium"
             >
               Login
             </Link>
             <Link
               href="/register"
-              className="text-gray-900 hover:text-blue-600 font-medium"
+              className="text-white hover:text-blue-600 font-medium"
             >
               Register
             </Link>

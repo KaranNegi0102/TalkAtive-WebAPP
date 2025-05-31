@@ -82,7 +82,7 @@ export default function RequestNotification() {
     <div className="relative ">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-gray-100 rounded-full"
+        className="relative p-2 hover:bg-[#f7f7f7] rounded-md cursor-pointer text-white hover:text-black"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
