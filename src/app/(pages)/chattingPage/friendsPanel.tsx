@@ -75,9 +75,9 @@ export default function FriendsPanel({
   }
 
   return (
-    <div className="w-full border-r-4 p-3 bg-[#ede3e3] border-[#333234]   h-full flex flex-col">
+    <div className="w-full border-r-4 p-3 bg-white border-gray-500   h-full flex flex-col">
       {/* Header */}
-      <div className=" border-b-2 border-gray-500  p-2 bg-[#ede3e3]">
+      <div className=" border-b-2   p-2 bg-white">
         <div className="flex items-center space-x-4">
           <div className="relative">
             <Image
@@ -96,7 +96,7 @@ export default function FriendsPanel({
           </div>
           <div>
             <h1 className="text-xl font-semibold text-[#333234]">
-              {userData?.data?.name}&apos;s Friends
+              {userData?.data?.name}
             </h1>
             <p className="text-sm text-gray-500 mt-1">
               {friends.filter((f) => f.status === "online").length} online
@@ -106,7 +106,7 @@ export default function FriendsPanel({
       </div>
 
       {/* Search bar */}
-      <div className="p-1 mt-2  bg-[#ede3e3] ">
+      <div className="p-1 mt-2  bg-white ">
         <div className="relative">
           <input
             type="text"
@@ -132,13 +132,13 @@ export default function FriendsPanel({
       </div>
 
       {/* Friends list */}
-      <div className="flex-1 bg-[#ede3e3] mt-3 overflow-y-auto">
+      <div className="flex-1 bg-white mt-3 border-b-3 border-gray-500 overflow-y-auto">
         {filteredFriends.length > 0 ? (
           filteredFriends.map((friend) => (
             <div
               key={friend._id}
               onClick={() => onSelectFriend(friend)}
-              className={`p-2 hover:bg-[#333234]  mb-3 border-b-3 hover:text-white transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-full cursor-pointer m-1 border-gray-500 
+              className={`p-2 hover:bg-[#333234] hover:text-white mb-3 border-gray-300 border-1 transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-full cursor-pointer m-1 
                 ${selectedFriendId === friend._id ? "bg-[#333234] text-white" : ""}`
               }
             >
