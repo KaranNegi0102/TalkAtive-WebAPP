@@ -41,33 +41,35 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
 
   return (
     <div className="flex-1  bg-[#f7f7f7] p-2  rounded-md flex flex-col  h-full">
-      <div className="flex shadow-xl rounded-full  items-center p-2 gap-2 ">
-        <Image
-          src={profile}
-          alt={selectedFriend?.name || "Select a friend"}
-          className="w-10 h-10 rounded-full"
-        />
-        <div className="flex flex-col">
-          <label className="text-lg text-black font-bold">
-            {selectedFriend?.name || "Select a friend"}
-          </label>
-          {selectedFriend?.status && (
-            <span
-              className={`text-xs ${
-                selectedFriend.status === "online"
-                  ? "text-green-500"
-                  : selectedFriend.status === "away"
-                  ? "text-yellow-500"
-                  : "text-gray-500"
-              }`}
-            >
-              {selectedFriend.status}
-            </span>
-          )}
-          {/* <label className="text-xs text-gray-500">
-            {selectedFriend?.phone || "Select a friend"}
-          </label> */}
+      <div className="flex shadow-xl rounded-full items-center p-2 gap-2 justify-between">
+        <div className="flex items-center gap-2">
+          <Image
+            src={profile}
+            alt={selectedFriend?.name || "Select a friend"}
+            className="w-10 h-10 rounded-full"
+          />
+          <div className="flex flex-col">
+            <label className="text-lg text-black font-bold">
+              {selectedFriend?.name || "Select a friend"}
+            </label>
+            {selectedFriend?.status && (
+              <span
+                className={`text-xs ${
+                  selectedFriend.status === "online"
+                    ? "text-green-500"
+                    : selectedFriend.status === "away"
+                    ? "text-yellow-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {selectedFriend.status}
+              </span>
+            )}
+          </div>
         </div>
+        <label className="text-sm mr-3 text-gray-500">
+          {selectedFriend?.phone || "Select a friend"}
+        </label>
       </div>
 
       {/* //#f7f7f7 #333234 */}

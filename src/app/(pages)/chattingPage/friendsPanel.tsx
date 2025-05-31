@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import profile from "../../../../public/profile.png";
+import { Separator } from "@/components/ui/separator";
 
 import { useAppSelector } from "@/app/hooks/hooks";
 import axios from "axios";
@@ -74,10 +75,12 @@ export default function FriendsPanel({
     );
   }
 
+  /* //#f7f7f7 #333234 */
+
   return (
-    <div className="w-full border-r-4 p-3 bg-white border-gray-500   h-full flex flex-col">
+    <div className="w-full border-r-4 p-3  border-gray-500    h-full flex flex-col">
       {/* Header */}
-      <div className=" border-b-2   p-2 bg-white">
+      <div className=" border-b-2   p-2 bg-[#333234] rounded-md">
         <div className="flex items-center space-x-4">
           <div className="relative">
             <Image
@@ -95,25 +98,25 @@ export default function FriendsPanel({
             />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-[#333234]">
+            <h1 className="text-xl font-semibold text-white">
               {userData?.data?.name}
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              {friends.filter((f) => f.status === "online").length} online
+            <p className="text-sm text-white mt-1">
+              {friends.filter((f) => f.status === "online").length} active
             </p>
           </div>
         </div>
       </div>
 
       {/* Search bar */}
-      <div className="p-1 mt-2  bg-white ">
+      <div className="p-1 mt-4  bg-white ">
         <div className="relative">
           <input
             type="text"
             placeholder="Search friends..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white text-gray-900 p-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full bg-white text-gray-900 p-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#333234] focus:border-transparent"
           />
           <svg
             className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
@@ -132,38 +135,48 @@ export default function FriendsPanel({
       </div>
 
       {/* Friends list */}
-      <div className="flex-1 bg-white mt-3 border-b-3 border-gray-500 overflow-y-auto">
+      <div className="flex-1 mt-1 border-b-3 border-gray-500 overflow-y-auto">
         {filteredFriends.length > 0 ? (
-          filteredFriends.map((friend) => (
-            <div
-              key={friend._id}
-              onClick={() => onSelectFriend(friend)}
-              className={`p-2 hover:bg-[#333234] hover:text-white mb-3 border-gray-300 border-1 transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-full cursor-pointer m-1 
-                ${selectedFriendId === friend._id ? "bg-[#333234] text-white" : ""}`
-              }
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <Image
-                      src={profile}
-                      alt={friend.name}
-                      className="w-10 h-10 rounded-full"
-                    />
-                    <span
-                      className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${getStatusColor(
-                        friend.status
-                      )}`}
-                    />
+          filteredFriends.map((friend, index) => (
+            <React.Fragment key={friend._id}>
+              <div
+                onClick={() => onSelectFriend(friend)}
+                className={`p-2 hover:bg-[#333234]  hover:text-white mb-3 border-gray-300  transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1 
+                  ${
+                    selectedFriendId === friend._id
+                      ? "bg-[#333234] text-white"
+                      : ""
+                  }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <Image
+                        src={profile}
+                        alt={friend.name}
+                        className="w-10 h-10 rounded-full"
+                      />
+                      <span
+                        className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${getStatusColor(
+                          friend.status
+                        )}`}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-medium hover:text-white ">
+                        {friend.name}
+                      </h3>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-medium hover:text-white ">
-                      {friend.name}
-                    </h3>
+                  <div className="text-sm text-gray-500 hover:text-white">
+                    {friend.phone}
                   </div>
                 </div>
               </div>
-            </div>
+              {index < filteredFriends.length - 1 && (
+                <Separator className="my-1" />
+              )}
+            </React.Fragment>
           ))
         ) : (
           <div className="p-4 text-center text-gray-500">No friends found</div>

@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Users, UserPlus, Video, MessageCircle, User } from "lucide-react";
 import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
 import FriendsPanel, { Friend } from "./friendsPanel";
 import AddFriendPanel from "./addFriendPanel";
 import VideoChatPanel from "./videoChatPanel";
@@ -73,10 +72,6 @@ const ChattingPage: React.FC = () => {
 
   const handleFriendSelect = useCallback((friend: Friend) => {
     setSelectedFriend(friend);
-  }, []);
-
-  const handleLeaveCall = useCallback(() => {
-    setActiveTab(null);
   }, []);
 
   useEffect(()=>{
@@ -203,9 +198,7 @@ const ChattingPage: React.FC = () => {
             </div>
           )}
         </section>
-      </main>
-
-      {/* <Footer />   */}
+      </main> 
     </div>
   );
 };

@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useAppSelector } from "@/app/hooks/hooks";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const { isLoggedIn } = useAppSelector((state: any) => state.auth);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,17 +49,40 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-4">
             <Link
-              href="/login"
+              href="/"
               className="text-white hover:text-blue-600 font-medium"
             >
-              Login
+              Home
             </Link>
             <Link
-              href="/register"
+              href="/about"
               className="text-white hover:text-blue-600 font-medium"
             >
-              Register
+              About Us
             </Link>
+            {isLoggedIn ? (
+              <Link
+                href="/logout"
+                className="text-white hover:text-blue-600 font-medium"
+              >
+                Logout
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-white hover:text-blue-600 font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-white hover:text-blue-600 font-medium"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
