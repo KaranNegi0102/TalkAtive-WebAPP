@@ -4,12 +4,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/app/hooks/hooks";
+import { useAppDispatch } from "@/app/hooks/hooks";
+import { logout } from "@/app/redux/slices/authSlice";
+import { useRouter } from "next/navigation";
+import { useSocket } from "@/app/socketProvider/socketProvider";
+import axios from "axios";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const { isLoggedIn } = useAppSelector((state: any) => state.auth);
+
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { isLoggedIn, userData } = useAppSelector((state: any) => state.auth);
+  const { socket } = useSocket();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +34,30 @@ export default function Navbar() {
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [isHomePage]);
+
+  async function handleLogout() {
+    try {
+      // First disconnect socket if connected
+      if (socket && userData?.data?.userId) {
+        socket.emit("user_disconnected", { userId: userData.data.userId });
+        socket.disconnect();
+      }
+
+      const response = await axios.post("/api/auth/logout",
+        { withCredentials: true }
+      );
+      if(response.data.success){
+        console.log("user logged out successfully")
+        dispatch(logout());
+        router.push("/login");
+      }
+
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Still try to redirect even if there's an error
+      router.push("/login");
+    }
+  }
 
   return (
     <nav
@@ -61,12 +94,12 @@ export default function Navbar() {
               About Us
             </Link>
             {isLoggedIn ? (
-              <Link
-                href="/logout"
+              <button
+                onClick={handleLogout}
                 className="text-white hover:text-blue-600 font-medium"
               >
                 Logout
-              </Link>
+              </button>
             ) : (
               <>
                 <Link

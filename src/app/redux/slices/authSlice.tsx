@@ -9,7 +9,7 @@ interface USER_DATA_TYPE {
   email: string;
   password: string;
   phone: string;
-  friends: [] | null,
+  friends: [] | null;
   token: string | null;
 }
 
@@ -36,10 +36,9 @@ export const fetchUserData = createAsyncThunk(
       const response = await axios.get("/api/auth/checkUser", {
         withCredentials: true,
       });
-  
+
       console.log("response in fetchUserData --> ", response);
       return response.data;
-
     } catch (error: any) {
       console.log("error in fetchUserData --> ", error);
       return rejectWithValue(error?.response?.data || "Something went wrong");
@@ -63,6 +62,7 @@ const authSlice = createSlice({
       state.token = null;
       state.userData = null;
       state.loading = false;
+      state.error = null;
     },
   },
 
@@ -79,7 +79,7 @@ const authSlice = createSlice({
           state.loading = false;
           state.isLoggedIn = true;
           state.userData = action.payload;
-          console.log("fetching user data in fulfilled state",action.payload);
+          console.log("fetching user data in fulfilled state", action.payload);
         }
       )
       .addCase(

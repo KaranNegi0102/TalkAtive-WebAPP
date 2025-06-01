@@ -117,6 +117,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         newSocket.emit("user_disconnected", { userId: userData.data.userId });
       }
       newSocket.disconnect();
+      setMessages([]); // Clear messages on cleanup
+      setUserStatus({}); // Clear user status on cleanup
     };
   }, [userData?.data?.userId]); // Re-run effect when userData.data.userId changes
 
