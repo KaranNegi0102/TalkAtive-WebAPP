@@ -5,9 +5,9 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl bg-blue-50 mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
+      <div className="max-w-7xl bg-[#f7f7f7] mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-5xl font-bold text-[#333234] mb-6">
             Connect and Chat in Real-Time
           </h1>
           <p className="text-xl text-gray-600 mb-8">
@@ -18,13 +18,13 @@ export default function Home() {
           <div className="space-x-4">
             <Link
               href="/chattingPage"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200"
+              className="bg-[#333234] hover:bg-black text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200"
             >
               Get Started
             </Link>
             <Link
               href="/login"
-              className="bg-transparent border border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-3 px-6 rounded-lg transition duration-200"
+              className="border border-[#333234]  text-[#333234] hover:bg-blue-50 font-semibold py-3 px-6 rounded-lg transition duration-200"
             >
               Login
             </Link>
@@ -35,15 +35,15 @@ export default function Home() {
       {/* Features Section */}
       <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-3xl font-bold text-center text-[#333234] mb-12">
             Why Choose TalkAtive?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="text-center">
-              <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-[#333234] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -67,9 +67,9 @@ export default function Home() {
 
             {/* Feature 2 */}
             <div className="text-center">
-              <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-[#333234] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,9 +93,9 @@ export default function Home() {
 
             {/* Feature 3 */}
             <div className="text-center">
-              <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="bg-[#333234] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

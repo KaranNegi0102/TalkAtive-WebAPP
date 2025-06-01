@@ -1,6 +1,4 @@
 "use client";
-import { Settings } from "lucide-react";
-import { LogOut } from "lucide-react";
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useAppSelector, useAppDispatch } from "@/app/hooks/hooks";
@@ -62,14 +60,6 @@ export default function UserProfileDetails() {
                 {currentUserStatus}
               </p>
             </div>
-          </div>
-          <div className="flex items-center space-x-3">
-            <button className="p-2 text-gray-600 hover:text-blue-600 transition-colors">
-              <Settings className="w-5 h-5" />
-            </button>
-            <button className="p-2 text-gray-600 hover:text-red-600 transition-colors">
-              <LogOut className="w-5 h-5" />
-            </button>
           </div>
         </div>
 

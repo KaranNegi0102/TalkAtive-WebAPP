@@ -37,25 +37,21 @@ export default function Navbar() {
 
   async function handleLogout() {
     try {
-      // First disconnect socket if connected
-      if (socket && userData?.data?.userId) {
-        socket.emit("user_disconnected", { userId: userData.data.userId });
-        socket.disconnect();
-      }
-
-      const response = await axios.post("/api/auth/logout",
-        { withCredentials: true }
-      );
-      if(response.data.success){
-        console.log("user logged out successfully")
+      const response = await axios.get("/api/auth/logout", {
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        console.log("user logged out successfully");
         dispatch(logout());
+
+        if (socket && userData?.data?.userId) {
+          socket.emit("user_disconnected", { userId: userData.data.userId });
+          socket.disconnect();
+        }
         router.push("/login");
       }
-
     } catch (error) {
       console.error("Error during logout:", error);
-      // Still try to redirect even if there's an error
-      router.push("/login");
     }
   }
 
@@ -65,9 +61,9 @@ export default function Navbar() {
         isHomePage
           ? "fixed " +
             (isScrolled
-              ? "bg-white/80 backdrop-blur-md shadow-lg"
-              : "bg-transparent")
-          : "bg-[#333234] shadow-lg"
+              ? "bg-[#333234] text-white shadow-lg"
+              : "bg-transparent ")
+          : "bg-[#333234] text-white shadow-lg"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,7 +71,9 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-2xl font-bold text-white hover:text-white"
+              className={`text-2xl font-bold ${
+                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+              } hover:text-white`}
             >
               TalkAtive
             </Link>
@@ -83,20 +81,26 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="text-white hover:text-blue-600 font-medium"
+              className={`${
+                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+              } hover:text-blue-600 font-medium`}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-white hover:text-blue-600 font-medium"
+              className={`${
+                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+              } hover:text-blue-600 font-medium`}
             >
               About Us
             </Link>
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="text-white hover:text-blue-600 font-medium"
+                className={`${
+                  isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                } hover:text-blue-600 font-medium`}
               >
                 Logout
               </button>
@@ -104,13 +108,17 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="text-white hover:text-blue-600 font-medium"
+                  className={`${
+                    isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                  } hover:text-blue-600 font-medium`}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-white hover:text-blue-600 font-medium"
+                  className={`${
+                    isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                  } hover:text-blue-600 font-medium`}
                 >
                   Register
                 </Link>
