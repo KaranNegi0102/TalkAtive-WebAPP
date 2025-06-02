@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/app/hooks/hooks";
 import { useAppDispatch } from "@/app/hooks/hooks";
-import { logout } from "@/app/redux/slices/authSlice";
+import { logout , fetchUserData } from "@/app/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { useSocket } from "@/app/socketProvider/socketProvider";
 import axios from "axios";
@@ -19,6 +19,8 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const { isLoggedIn, userData } = useAppSelector((state: any) => state.auth);
   const { socket } = useSocket();
+
+  // console.log("in navbarr ki bakchodi", isLoggedIn);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +36,12 @@ export default function Navbar() {
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [isHomePage]);
+
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
+
 
   async function handleLogout() {
     try {

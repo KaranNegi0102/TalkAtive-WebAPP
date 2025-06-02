@@ -77,11 +77,11 @@ export default function AddFriendPanel() {
       if (response.data.success) {
         alert("Friend request sent successfully!");
       } else {
-        alert(response.data.message || "Failed to send friend request");
+        alert(response.data.message || "Request of the person already in ur add list");
       }
     } catch (error: any) {
       console.error("Error sending friend request:", error);
-      alert(error.response?.data?.message || "Failed to send friend request");
+      alert(error.response?.data?.message || "Failed to send friend request or Request of the person already in ur add list");
     }
   }
 

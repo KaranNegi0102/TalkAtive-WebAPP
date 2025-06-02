@@ -2,6 +2,7 @@ import { ApiError , ApiSuccess } from "@/app/services/apiResponse";
 import connectionDB from "@/app/utils/dataBase/dbConnection";
 import FriendRequest from "@/app/utils/models/FriendRequest";
 import Friend from "@/app/utils/models/Friend";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -23,9 +24,16 @@ export async function POST(req: Request) {
       ],
     });
 
+    // console.log("request already exist ->",existingRequest);
+
     if (existingRequest) {
-      return ApiError("Friend request already exists");
+      return NextResponse.json({
+        success: false,
+        message: "Friend request already exists"
+      }, { status: 400 });
     }
+
+    console.log("yaha tak chal rha kya code -check 1")
 
     // Check if they are already friends
     const existingFriendship = await Friend.findOne({
@@ -34,6 +42,9 @@ export async function POST(req: Request) {
         { user1: receiverId, user2: senderId },
       ],
     });
+
+    console.log("this is existingfriendship ->",existingFriendship)
+    console.log("yaha tak chal rha kya code -check 2")
 
     if (existingFriendship) {
       return ApiError("Users are already friends");
@@ -52,7 +63,6 @@ export async function POST(req: Request) {
     );
   } catch (error: any) {
     console.error("Error in add friend API:", error);
-    return ApiError(
-      { success: false, message: error.message });
+    return ApiError(error.message);
   }
 }

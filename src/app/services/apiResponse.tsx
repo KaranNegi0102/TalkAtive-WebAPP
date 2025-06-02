@@ -16,7 +16,7 @@ export function ApiSuccess(message: string, data: any = {}, status: number = 200
 }
 
 
-export function ApiError(error?:any , status:number=500){
+export function ApiError(message:string, error?:any , status:number=500){
 
   console.log("api error message in services -> ",error?.message);
 
