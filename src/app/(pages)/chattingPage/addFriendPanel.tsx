@@ -5,6 +5,7 @@ import Image from "next/image";
 import profile from "../../../../public/profile.png";
 import axios from "axios";
 import { useAppSelector } from "@/app/hooks/hooks";
+import { UserPlus } from "lucide-react";
 
 type User = {
   _id: string;
@@ -92,14 +93,16 @@ export default function AddFriendPanel() {
   );
 
   return (
-    <div className="w-full border-r-4 p-3 border-gray-500 h-full flex flex-col">
+    <div className="w-full p-3 border-r-3 border-gray-500 h-full flex flex-col">
       {/* Header */}
-      <div className="border-b-2 p-2 bg-[#333234] rounded-md">
-        <h1 className="text-xl font-semibold text-white">Add Friends</h1>
+      <div className="border-b-2 p-2 border-3 text-center  bg-[#333234] rounded-md">
+        <h1 className="text-xl font-semibold text-white flex items-center justify-center gap-4">
+          Add Friends <UserPlus className="w-5 h-5" />
+        </h1>
       </div>
 
       {/* Search bar */}
-      <div className="p-1 mt-4 bg-white">
+      <div className="p-1 mt-4 bg-[#f4eded]">
         <div className="relative">
           <input
             type="text"
@@ -130,7 +133,7 @@ export default function AddFriendPanel() {
           filteredFriends.map((user) => (
             <div
               key={user._id}
-              className="p-2 hover:bg-[#f7f7f7] hover:text-black mb-3 border-gray-300 transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1"
+              className="p-2 hover:bg-[#f7f7f7] bg-[#e6e6e6] hover:text-black mb-3 border-gray-300 transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">

@@ -78,15 +78,15 @@ export default function FriendsPanel({
   /* //#f7f7f7 #333234 */
 
   return (
-    <div className="w-full border-r-4 p-3  border-gray-500    h-full flex flex-col">
+    <div className="w-full p-3 border-r-3 border-gray-500  h-full flex flex-col">
       {/* Header */}
-      <div className=" border-b-2   p-2 bg-[#333234] rounded-md">
+      <div className=" border-b-2  p-2 bg-[#333234] rounded-md">
         <div className="flex items-center space-x-4">
           <div className="relative">
             <Image
               src={profile}
               alt="Profile"
-              className="w-12 h-12 rounded-full border-2 border-blue-500"
+              className="w-12 h-12 bg-white rounded-full border-2 border-blue-500"
             />
             <div
               className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
@@ -109,7 +109,7 @@ export default function FriendsPanel({
       </div>
 
       {/* Search bar */}
-      <div className="p-1 mt-4  bg-white ">
+      <div className="p-1 mt-4  bg-[#f4eded] ">
         <div className="relative">
           <input
             type="text"
@@ -135,13 +135,13 @@ export default function FriendsPanel({
       </div>
 
       {/* Friends list */}
-      <div className="flex-1 mt-1 border-b-3 border-gray-500 overflow-y-auto">
+      <div className="flex-1 mt-1  overflow-y-auto">
         {filteredFriends.length > 0 ? (
           filteredFriends.map((friend, index) => (
             <React.Fragment key={friend._id}>
               <div
                 onClick={() => onSelectFriend(friend)}
-                className={`p-2 hover:bg-[#333234]  hover:text-white mb-3 border-gray-300  transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1 
+                className={`p-2 hover:bg-[#333234] hover:text-white mb-3 border-gray-300  transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1 
                   ${
                     selectedFriendId === friend._id
                       ? "bg-[#333234] text-white"
@@ -174,7 +174,7 @@ export default function FriendsPanel({
                 </div>
               </div>
               {index < filteredFriends.length - 1 && (
-                <Separator className="my-1" />
+                <Separator className="my-2 bg-gray-400" />
               )}
             </React.Fragment>
           ))

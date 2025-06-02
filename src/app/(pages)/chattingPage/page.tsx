@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import { Users, UserPlus, Video, MessageCircle, User } from "lucide-react";
+import {
+  Users,
+  UserPlus,
+  Video,
+  MessageCircle,
+  User,
+  Bell,
+} from "lucide-react";
 import Navbar from "@/components/navbar";
 import FriendsPanel, { Friend } from "./friendsPanel";
 import AddFriendPanel from "./addFriendPanel";
@@ -9,12 +16,15 @@ import VideoChatPanel from "./videoChatPanel";
 import UserProfileDetails from "@/components/chattingPageComponents/UserProfileDetails";
 import RequestNotification from "./requestNotification";
 import MainTextArea from "./mainTextArea";
-import { useAppDispatch, useAppSelector} from "@/app/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
 import { fetchUserData } from "@/app/redux/slices/authSlice";
 
-
-
-type SidebarTab = "friends" | "add-friends" | "video-chat" | "user-profile";
+type SidebarTab =
+  | "friends"
+  | "add-friends"
+  | "video-chat"
+  | "user-profile"
+  | "request-notification";
 
 interface NavigationButton {
   id: SidebarTab;
@@ -26,17 +36,21 @@ interface NavigationButton {
 const ChattingPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SidebarTab | null>("friends");
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
+  const [requestCount, setRequestCount] = useState(0);
   const dispatch = useAppDispatch();
 
-
-  const {userData} = useAppSelector((state:any)=> state.auth);
+  const { userData } = useAppSelector((state: any) => state.auth);
   console.log(userData);
-
-
 
   // Navigation configuration
   const navigationButtons: NavigationButton[] = useMemo(
     () => [
+      {
+        id: "request-notification",
+        icon: Bell,
+        label: "request",
+        ariaLabel: "all request ",
+      },
       {
         id: "user-profile",
         icon: User,
@@ -74,9 +88,9 @@ const ChattingPage: React.FC = () => {
     setSelectedFriend(friend);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchUserData());
-  },[dispatch]);
+  }, [dispatch]);
 
   const renderSidebarContent = () => {
     switch (activeTab) {
@@ -84,15 +98,18 @@ const ChattingPage: React.FC = () => {
         return <UserProfileDetails />;
       case "friends":
         return (
-          <FriendsPanel onSelectFriend={handleFriendSelect} selectedFriendId={selectedFriend?._id} />
+          <FriendsPanel
+            onSelectFriend={handleFriendSelect}
+            selectedFriendId={selectedFriend?._id}
+          />
         );
       case "add-friends":
         return <AddFriendPanel />;
       case "video-chat":
-        return (
-          <VideoChatPanel />
-        );
-      
+        return <VideoChatPanel />;
+      case "request-notification":
+        return <RequestNotification onRequestsChange={setRequestCount} />;
+
       default:
         return null;
     }
@@ -111,9 +128,9 @@ const ChattingPage: React.FC = () => {
             role="navigation"
             aria-label="Main navigation"
           >
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <RequestNotification />
-            </div>
+            </div> */}
 
             {navigationButtons.map(({ id, icon: Icon, label, ariaLabel }) => (
               <button
@@ -142,8 +159,11 @@ const ChattingPage: React.FC = () => {
                     }
                   `}
                 />
-
-                
+                {id === "request-notification" && requestCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {requestCount}
+                  </span>
+                )}
               </button>
             ))}
           </nav>
@@ -156,7 +176,7 @@ const ChattingPage: React.FC = () => {
           `}
           >
             {activeTab && (
-              <div className="w-80 h-full bg-white">
+              <div className="w-80 h-full bg-[#f4eded] ">
                 {renderSidebarContent()}
               </div>
             )}
@@ -186,7 +206,7 @@ const ChattingPage: React.FC = () => {
             </div>
           )}
         </section>
-      </main> 
+      </main>
     </div>
   );
 };

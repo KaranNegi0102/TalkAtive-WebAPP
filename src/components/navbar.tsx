@@ -83,7 +83,7 @@ export default function Navbar() {
               href="/"
               className={`${
                 isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-              } hover:text-blue-600 font-medium`}
+              } hover:text-[#ddedcff5]  font-medium`}
             >
               Home
             </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
               href="/about"
               className={`${
                 isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-              } hover:text-blue-600 font-medium`}
+              } hover:text-[#ddedcff5] font-medium`}
             >
               About Us
             </Link>
@@ -100,7 +100,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className={`${
                   isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-                } hover:text-blue-600 font-medium`}
+                } hover:text-red-700 font-medium cursor-pointer`}
               >
                 Logout
               </button>
@@ -110,7 +110,7 @@ export default function Navbar() {
                   href="/login"
                   className={`${
                     isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-                  } hover:text-blue-600 font-medium`}
+                  } hover:text-[#ddedcff5] font-medium`}
                 >
                   Login
                 </Link>
@@ -118,7 +118,7 @@ export default function Navbar() {
                   href="/register"
                   className={`${
                     isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-                  } hover:text-blue-600 font-medium`}
+                  } hover:text-[#ddedcff5] font-medium`}
                 >
                   Register
                 </Link>

@@ -17,31 +17,50 @@ type FriendRequest = {
   createdAt: string;
 };
 
-export default function RequestNotification() {
+interface RequestNotificationProps {
+  onRequestsChange?: (count: number) => void;
+}
+
+export default function RequestNotification({
+  onRequestsChange,
+}: RequestNotificationProps) {
   const [requests, setRequests] = useState<FriendRequest[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
   const { userData } = useAppSelector((state: any) => state.auth);
 
   const fetchRequests = async () => {
     try {
-      console.log("yaha tak chal rha ??");
       const response = await axios.get(
         `/api/chatPageApis/getFriendRequests?userId=${userData?.data?.userId}`
       );
-      console.log("fetch request response -> ", response);
 
       if (response.data.success) {
-        setRequests(response.data.data);
+        const pendingRequests = response.data.data.filter(
+          (request: FriendRequest) => request.status === "pending"
+        );
+        setRequests(pendingRequests);
+        onRequestsChange?.(pendingRequests.length);
       }
     } catch (error) {
       console.error("Error fetching friend requests:", error);
     }
   };
 
+  // Fetch requests immediately when component mounts
   useEffect(() => {
     if (userData?.data?.userId) {
       fetchRequests();
     }
+  }, [userData]);
+
+  // Set up polling to check for new requests every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (userData?.data?.userId) {
+        fetchRequests();
+      }
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
   }, [userData]);
 
   const handleAccept = async (requestId: string) => {
@@ -52,7 +71,6 @@ export default function RequestNotification() {
           requestId,
         }
       );
-      console.log("this is response in notification", response);
 
       if (response.data.success) {
         fetchRequests(); // Refresh the requests list
@@ -79,81 +97,61 @@ export default function RequestNotification() {
   };
 
   return (
-    <div className="relative ">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-[#f7f7f7] rounded-md cursor-pointer text-white hover:text-black"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-          />
-        </svg>
-        {requests.length > 0 && (
-          <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-            {requests.length}
-          </span>
-        )}
-      </button>
+    <div className="w-full p-3 border-r-3 border-gray-500 h-full flex flex-col">
+      {/* Header */}
+      <div className="border-b-2 p-2 border-3 text-center bg-[#333234] rounded-md">
+        <h1 className="text-xl font-semibold text-white">Friend Requests</h1>
+      </div>
 
-      {isOpen && (
-        <div className="absolute  ml-[50%] mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold">Friend Requests</h3>
-          </div>
-          <div className="max-h-96 overflow-y-auto">
-            {requests.length > 0 ? (
-              requests.map((request) => (
-                <div
-                  key={request._id}
-                  className="p-4 border-b border-gray-200 last:border-b-0"
-                >
-                  <div className="flex items-center gap-3 mb-3">
+      {/* Requests List */}
+      <div className="flex-1 mt-1 border-b-3 border-gray-500 overflow-y-auto">
+        {requests.length > 0 ? (
+          requests.map((request) => (
+            <div
+              key={request._id}
+              className="p-2 hover:bg-[#f7f7f7] bg-[#e6e6e6] hover:text-black mb-3 border-gray-300 transition-all duration-300 ease-in-out transform hover:-translate-y-1 rounded-md cursor-pointer m-1"
+            >
+              <div className="flex gap-4 items-center">
+                <div className="flex items-center">
+                  <div className="relative">
                     <Image
                       src={profile}
                       alt={request.sender.name}
                       className="w-10 h-10 rounded-full"
                     />
-                    <div>
-                      <h4 className="font-semibold">{request.sender.name}</h4>
-                      <p className="text-sm text-gray-500">
-                        {request.sender.email}
-                      </p>
-                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleAccept(request._id)}
-                      className="flex-1 bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition-colors"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleReject(request._id)}
-                      className="flex-1 bg-gray-200 text-gray-700 px-3 py-1 rounded-md hover:bg-gray-300 transition-colors"
-                    >
-                      Reject
-                    </button>
+                  <div>
+                    <h3 className="font-xs hover:text-gray-500">
+                      {request.sender.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 hover:text-gray-500">
+                      {request.sender.email}
+                    </p>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="p-4 text-center text-gray-500">
-                No pending friend requests
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleAccept(request._id)}
+                    className="px-4 py-2 bg-[#333234] cursor-pointer text-white rounded-md hover:bg-black transition-colors"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleReject(request._id)}
+                    className="px-4 py-2 bg-gray-200 cursor-pointer text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                  >
+                    Reject
+                  </button>
+                </div>
               </div>
-            )}
+            </div>
+          ))
+        ) : (
+          <div className="p-4 text-center text-gray-500">
+            No pending friend requests
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

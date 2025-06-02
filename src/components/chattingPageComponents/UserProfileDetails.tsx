@@ -33,16 +33,16 @@ export default function UserProfileDetails() {
   const currentUserStatus = userStatus[currentUserId] || "offline";
 
   return (
-    <div className="w-full h-full bg-[#e2dbea]">
+    <div className="w-full h-full border-r-3 border-gray-500 bg-[#f4eded]">
       <div className="p-4">
         {/* Profile Header */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center border-1 bg-[#333234] rounded-md p-3 justify-between mb-4">
           <div className="flex items-center space-x-4">
             <div className="relative">
               <Image
                 src={profile}
                 alt="Profile"
-                className="w-12 h-12 rounded-full border-2 border-blue-500"
+                className="w-12 h-12 bg-white rounded-full border-2 border-blue-500"
               />
               {/* Status indicator */}
               <div
@@ -53,10 +53,10 @@ export default function UserProfileDetails() {
               />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-[#333234]">
+              <h2 className="text-lg font-semibold text-white">
                 {userData?.data?.name || "User Name"}
               </h2>
-              <p className="text-xs text-[#333234] capitalize">
+              <p className="text-xs text-white capitalize">
                 {currentUserStatus}
               </p>
             </div>
@@ -64,16 +64,16 @@ export default function UserProfileDetails() {
         </div>
 
         {/* Profile Details */}
-        <div className="space-y-2 border-t border-gray-600 pt-4">
+        <div className="space-y-2 border-t   border-gray-600  pt-4">
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-[#333234]">Email:</span>
-            <p className="text-sm text-[#333234]">
+            <span className="text-lg font-medium text-[#333234]">Email:</span>
+            <p className="text-lg hover:underline cursor-pointer text-[#333234]">
               {userData?.data?.email || "user@email.com"}
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-[#333234]">Phone:</span>
-            <p className="text-sm text-[#333234]">
+            <span className="text-lg font-medium text-[#333234]">Phone:</span>
+            <p className="text-lg hover:underline cursor-pointer text-[#333234]">
               {userData?.data?.phone || "1234567890"}
             </p>
           </div>
