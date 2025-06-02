@@ -33,7 +33,7 @@ export default function UserProfileDetails() {
   const currentUserStatus = userStatus[currentUserId] || "offline";
 
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full h-full bg-[#e2dbea]">
       <div className="p-4">
         {/* Profile Header */}
         <div className="flex items-center justify-between mb-4">
@@ -53,10 +53,10 @@ export default function UserProfileDetails() {
               />
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-semibold text-[#333234]">
                 {userData?.data?.name || "User Name"}
               </h2>
-              <p className="text-xs text-gray-400 capitalize">
+              <p className="text-xs text-[#333234] capitalize">
                 {currentUserStatus}
               </p>
             </div>
@@ -64,16 +64,16 @@ export default function UserProfileDetails() {
         </div>
 
         {/* Profile Details */}
-        <div className="space-y-2 border-t border-gray-200 pt-4">
+        <div className="space-y-2 border-t border-gray-600 pt-4">
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-600">Email:</span>
-            <p className="text-sm text-gray-500">
+            <span className="text-sm font-medium text-[#333234]">Email:</span>
+            <p className="text-sm text-[#333234]">
               {userData?.data?.email || "user@email.com"}
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-600">Phone:</span>
-            <p className="text-sm text-gray-500">
+            <span className="text-sm font-medium text-[#333234]">Phone:</span>
+            <p className="text-sm text-[#333234]">
               {userData?.data?.phone || "1234567890"}
             </p>
           </div>
