@@ -13,6 +13,7 @@ export const initializeSocket = (server) => {
   });
 
   // everything is done
+  // /remote changing done
 
   // Store connected users
   const connectedUsers = new Map();
