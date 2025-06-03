@@ -4,10 +4,10 @@ import React from "react";
 import Navbar from "@/components/navbar";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import Footer from "@/components/footer";
 import axios from "axios";
 import { useSocket } from "@/app/socketProvider/socketProvider";
 import { useRouter } from "next/navigation";
+import image from "../../../../../public/coffee.jpg";
 
 type LoginFormData = {
   email: string;
@@ -33,7 +33,7 @@ export default function LoginPage() {
     try {
       const response = await axios.post("/api/auth/login", data);
 
-      console.log("this is response in login page",response);
+      console.log("this is response in login page", response);
 
       if (response.data.success) {
         const userData = response.data.data.userData;
@@ -54,28 +54,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div
+      className="min-h-screen bg-gray-50 "
+      style={{
+        backgroundImage: `url(${image.src})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Navbar />
 
-      <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md  rounded-md shadow-xl p-6 space-y-8">
+      <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="w-full p-9 max-w-md  rounded-md shadow-xl space-y-8 relative bg-white/90 backdrop-blur-sm">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+            <h2 className="text-center text-3xl font-bold tracking-tight text-[#333234]">
+              Welcome Back Amigos !!
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
-              <Link
-                href="/register"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                create a new account
-              </Link>
-            </p>
           </div>
 
-          <form className="mt-8 space-y-6 " onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-4 rounded-md">
+          <form className="mt-8 space-y-5 " onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-7 rounded-md">
               <div>
                 <label
                   htmlFor="email"
@@ -86,7 +84,7 @@ export default function LoginPage() {
                 <input
                   id="email"
                   type="email"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="mt-2 block w-full  rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
                   placeholder="Enter your email"
                   {...register("email", {
                     required: "Email is Required",
@@ -113,7 +111,7 @@ export default function LoginPage() {
                 <input
                   id="password"
                   type="password"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Enter your password"
                   {...register("password", {
                     required: "Password is required",
@@ -130,10 +128,21 @@ export default function LoginPage() {
                 )}
               </div>
             </div>
+            <div className="text-center mt-4">
+              <p className="text-sm text-gray-600">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/signup"
+                  className="font-medium text-[#333234] hover:text-black hover:underline"
+                >
+                  Sign up
+                </Link>
+              </p>
+            </div>
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#333234] px-4 py-2 text-sm font-medium text-white hover:bg-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Sign in
               </button>
@@ -141,8 +150,6 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
