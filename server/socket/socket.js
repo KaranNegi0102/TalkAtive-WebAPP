@@ -12,6 +12,8 @@ export const initializeSocket = (server) => {
     },
   });
 
+  // everything is done
+
   // Store connected users
   const connectedUsers = new Map();
 
