@@ -7,7 +7,7 @@ import "dotenv/config";
 export const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:3000" || "https://project0102.vercel.app",
+      origin: process.env.CLIENT_URL || "http://localhost:3000" || "https://talk-ative-web-app.vercel.app",
       methods: ["GET", "POST"],
     },
   });
