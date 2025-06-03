@@ -5,7 +5,7 @@ import Message from "../../src/app/utils/models/Message.js"
 export const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: ["http://localhost:3000", "https://project0102.vercel.app"],
       methods: ["GET", "POST"],
     },
   });
