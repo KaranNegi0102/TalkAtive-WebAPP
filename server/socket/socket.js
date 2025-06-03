@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
-import User from "../../src/app/utils/models/UserSchema.js";
-import Message from "../../src/app/utils/models/Message.js"
+import User from "../utils/models/UserSchema.js";
+import Message from "../utils/models/Message.js"
 import "dotenv/config";
 
 
