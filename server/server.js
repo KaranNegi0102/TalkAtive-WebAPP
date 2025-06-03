@@ -1,6 +1,6 @@
 import http from "http";
 import { initializeSocket } from "./socket/socket.js";
-import connectionDB from "../src/app/utils/database/dbConnection.js";
+import connectionDB from "../src/app/utils/dataBase/dbConnection.js";
 import "dotenv/config";
 
 const server = http.createServer();
