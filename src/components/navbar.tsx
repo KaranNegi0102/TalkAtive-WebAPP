@@ -69,7 +69,7 @@ export default function Navbar() {
         isHomePage
           ? "fixed " +
             (isScrolled
-              ? "bg-[#333234] text-white shadow-lg"
+              ? " text-white "
               : "bg-transparent ")
           : "bg-[#333234] text-white shadow-lg"
       }`}
@@ -80,8 +80,8 @@ export default function Navbar() {
             <Link
               href="/"
               className={`text-2xl font-bold ${
-                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
-              } hover:text-white`}
+                isHomePage ? "text-[#333234]" : "text-white"
+              } hover:text-white `}
             >
               TalkAtive
             </Link>
@@ -90,7 +90,7 @@ export default function Navbar() {
             <Link
               href="/"
               className={`${
-                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                isHomePage  ? "text-[#333234]" : "text-white"
               } hover:text-[#ddedcff5]  font-medium`}
             >
               Home
@@ -98,7 +98,7 @@ export default function Navbar() {
             <Link
               href="/about"
               className={`${
-                isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                isHomePage  ? "text-[#333234]" : "text-white"
               } hover:text-[#ddedcff5] font-medium`}
             >
               About Us
@@ -107,7 +107,7 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 className={`${
-                  isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                  isHomePage  ? "text-[#333234]" : "text-white"
                 } hover:text-red-700 font-medium cursor-pointer`}
               >
                 Logout
@@ -117,7 +117,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   className={`${
-                    isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                    isHomePage  ? "text-[#333234]" : "text-white"
                   } hover:text-[#ddedcff5] font-medium`}
                 >
                   Login
@@ -125,7 +125,7 @@ export default function Navbar() {
                 <Link
                   href="/register"
                   className={`${
-                    isHomePage && !isScrolled ? "text-[#333234]" : "text-white"
+                    isHomePage  ? "text-[#333234]" : "text-white"
                   } hover:text-[#ddedcff5] font-medium`}
                 >
                   Register

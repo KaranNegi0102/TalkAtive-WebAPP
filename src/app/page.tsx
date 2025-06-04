@@ -1,17 +1,28 @@
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import Footer from "@/components/footer";
+import image2 from "../../public/front2.jpg";
+
 export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl bg-[#f7f7f7] mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
-        <div className="text-center">
+
+      <div className="max-w-7xl bg-[#f7f7f7] mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-27 relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{
+            backgroundImage: `url(${image2.src})`,
+            backgroundPosition: "top",
+            backgroundSize: "cover",
+          }}
+        />
+        <div className="text-center relative z-10">
           <h1 className="text-5xl font-bold text-[#333234] mb-6">
             Connect and Chat in Real-Time
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            SocketChat is the ultimate platform for seamless, real-time
+            TalkAtive is the ultimate platform for seamless, real-time
             communication. Join now and start chatting with friends, family, and
             colleagues.
           </p>
@@ -33,8 +44,16 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white py-16 relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{
+            backgroundImage: `url(${image2.src})`,
+            backgroundPosition: "fill",
+            backgroundSize: "cover",
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl font-bold text-center text-[#333234] mb-12">
             Why Choose TalkAtive?
           </h2>
