@@ -39,7 +39,7 @@ export default function RegisterPage() {
       const response = await axios.post("/api/auth/register", data);
 
       // console.log("response in register page --> ", response);
-      
+
       if (response.data.success) {
         console.log("User registered successfully");
       }
@@ -59,36 +59,39 @@ export default function RegisterPage() {
     >
       <Navbar />
 
-      <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full p-9 max-w-md rounded-md shadow-xl space-y-8 relative bg-white/90 backdrop-blur-sm">
+      <div className="flex items-center justify-center px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md p-6 sm:p-9 rounded-xl shadow-xl space-y-6 sm:space-y-8 relative bg-white/90 backdrop-blur-sm">
           <div>
-            <h2 className="text-center text-3xl font-bold tracking-tight text-[#333234]">
+            <h2 className="text-center text-xl sm:text-3xl font-bold tracking-tight text-[#333234]">
               Create your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
+            <p className="mt-2 text-center text-xs sm:text-sm text-gray-600">
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="font-medium text-[#333234] hover:text-black hover:underline"
+                className="font-medium text-xs sm:text-sm text-[#333234] hover:text-black hover:underline"
               >
                 Sign in
               </Link>
             </p>
           </div>
 
-          <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-7 rounded-md">
+          <form
+            className="mt-6 sm:mt-8 space-y-4 sm:space-y-5"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="space-y-4 sm:space-y-7 rounded-md">
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs sm:text-sm font-medium text-gray-700"
                 >
                   Full Name
                 </label>
                 <input
                   id="name"
                   type="text"
-                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Enter your full name"
                   {...register("name", {
                     required: "Name is required",
@@ -99,7 +102,7 @@ export default function RegisterPage() {
                   })}
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-xs sm:text-sm text-red-600">
                     {errors.name.message}
                   </p>
                 )}
@@ -108,14 +111,14 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs sm:text-sm font-medium text-gray-700"
                 >
                   Email address
                 </label>
                 <input
                   id="email"
                   type="email"
-                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Enter your email"
                   {...register("email", {
                     required: "Email is required",
@@ -126,7 +129,7 @@ export default function RegisterPage() {
                   })}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-xs sm:text-sm text-red-600">
                     {errors.email.message}
                   </p>
                 )}
@@ -135,14 +138,14 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs sm:text-sm font-medium text-gray-700"
                 >
                   Phone Number
                 </label>
                 <input
                   id="phone"
                   type="text"
-                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Enter your phone number"
                   {...register("phone", {
                     required: "Phone number is required",
@@ -153,14 +156,14 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs sm:text-sm font-medium text-gray-700"
                 >
                   Password
                 </label>
                 <input
                   id="password"
                   type="password"
-                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Create a password"
                   {...register("password", {
                     required: "Password is required",
@@ -171,7 +174,7 @@ export default function RegisterPage() {
                   })}
                 />
                 {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-xs sm:text-sm text-red-600">
                     {errors.password.message}
                   </p>
                 )}
@@ -180,14 +183,14 @@ export default function RegisterPage() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-xs sm:text-sm font-medium text-gray-700"
                 >
                   Confirm Password
                 </label>
                 <input
                   id="confirmPassword"
                   type="password"
-                  className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234] sm:text-sm"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Confirm your password"
                   {...register("confirmPassword", {
                     required: "Please confirm your password",
@@ -196,7 +199,7 @@ export default function RegisterPage() {
                   })}
                 />
                 {errors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-xs sm:text-sm text-red-600">
                     {errors.confirmPassword.message}
                   </p>
                 )}
@@ -206,7 +209,7 @@ export default function RegisterPage() {
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#333234] px-4 py-2 text-sm font-medium text-white hover:bg-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="group relative flex text-xs sm:text-sm w-full justify-center rounded-md border border-transparent bg-[#333234] px-4 py-2 font-medium text-white hover:bg-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#333234] focus:ring-offset-2 transition-colors duration-200"
               >
                 Create Account
               </button>

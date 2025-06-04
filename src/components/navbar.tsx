@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/app/hooks/hooks";
 import { useAppDispatch } from "@/app/hooks/hooks";
-import { logout , fetchUserData } from "@/app/redux/slices/authSlice";
+import { logout, fetchUserData } from "@/app/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { useSocket } from "@/app/socketProvider/socketProvider";
 import axios from "axios";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -37,11 +38,14 @@ export default function Navbar() {
     }
   }, [isHomePage]);
 
-
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   async function handleLogout() {
     try {
@@ -67,10 +71,7 @@ export default function Navbar() {
     <nav
       className={`w-full z-50 transition-all duration-300 ${
         isHomePage
-          ? "fixed " +
-            (isScrolled
-              ? " text-white "
-              : "bg-transparent ")
+          ? "md:fixed " + (isScrolled ? " text-white " : "bg-transparent ")
           : "bg-[#333234] text-white shadow-lg"
       }`}
     >
@@ -81,24 +82,26 @@ export default function Navbar() {
               href="/"
               className={`text-2xl font-bold ${
                 isHomePage ? "text-[#333234]" : "text-white"
-              } hover:text-white `}
+              } hover:text-white`}
             >
               TalkAtive
             </Link>
           </div>
-          <div className="flex items-center gap-4">
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-4">
             <Link
               href="/"
               className={`${
-                isHomePage  ? "text-[#333234]" : "text-white"
-              } hover:text-[#ddedcff5]  font-medium`}
+                isHomePage ? "text-[#333234]" : "text-white"
+              } hover:text-[#ddedcff5] font-medium`}
             >
               Home
             </Link>
             <Link
               href="/about"
               className={`${
-                isHomePage  ? "text-[#333234]" : "text-white"
+                isHomePage ? "text-[#333234]" : "text-white"
               } hover:text-[#ddedcff5] font-medium`}
             >
               About Us
@@ -107,7 +110,7 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 className={`${
-                  isHomePage  ? "text-[#333234]" : "text-white"
+                  isHomePage ? "text-[#333234]" : "text-white"
                 } hover:text-red-700 font-medium cursor-pointer`}
               >
                 Logout
@@ -117,7 +120,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   className={`${
-                    isHomePage  ? "text-[#333234]" : "text-white"
+                    isHomePage ? "text-[#333234]" : "text-white"
                   } hover:text-[#ddedcff5] font-medium`}
                 >
                   Login
@@ -125,8 +128,96 @@ export default function Navbar() {
                 <Link
                   href="/register"
                   className={`${
-                    isHomePage  ? "text-[#333234]" : "text-white"
+                    isHomePage ? "text-[#333234]" : "text-white"
                   } hover:text-[#ddedcff5] font-medium`}
+                >
+                  Register
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`${
+                isHomePage ? "text-[#333234]" : "text-white"
+              } hover:text-gray-300 focus:outline-none`}
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden ${
+            isMobileMenuOpen ? "block" : "hidden"
+          } transition-all duration-300 ease-in-out`}
+        >
+          <div className="px-2 ">
+            <Link
+              href="/"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isHomePage ? "text-[#333234] text-xs" : "text-white"
+              } hover:bg-gray-700 hover:text-white`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isHomePage ? "text-[#333234] text-xs" : "text-white"
+              } hover:bg-gray-700 hover:text-white`}
+            >
+              About Us
+            </Link>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium ${
+                  isHomePage ? "text-[#333234] text-xs" : "text-white"
+                } hover:bg-gray-700 hover:text-red-700`}
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isHomePage ? "text-[#333234] text-xs" : "text-white"
+                  } hover:bg-gray-700 hover:text-white`}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isHomePage ? "text-[#333234] text-xs" : "text-white"
+                  } hover:bg-gray-700 hover:text-white`}
                 >
                   Register
                 </Link>
