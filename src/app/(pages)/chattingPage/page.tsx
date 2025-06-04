@@ -176,7 +176,7 @@ const ChattingPage: React.FC = () => {
           `}
           >
             {activeTab && (
-              <div className="w-80 h-full bg-[#f4eded] ">
+              <div className="w-80 h-full bg-[#f4eded] " > 
                 {renderSidebarContent()}
               </div>
             )}

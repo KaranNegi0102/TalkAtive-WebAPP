@@ -43,7 +43,7 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
   return (
     <div className="flex-1 bg-[#f7f7f7] p-2  rounded-md flex flex-col h-full relative">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: `url(${coffee.src})`,
         }}

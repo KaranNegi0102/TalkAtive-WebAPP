@@ -70,6 +70,7 @@ export default function LoginPage() {
             <h2 className="text-center text-3xl font-bold tracking-tight text-[#333234]">
               Welcome Back Amigos !!
             </h2>
+            <p className="text-center text-sm italic mt-2 text-[#333234]">login to your account </p>
           </div>
 
           <form className="mt-8 space-y-5 " onSubmit={handleSubmit(onSubmit)}>
@@ -132,7 +133,7 @@ export default function LoginPage() {
               <p className="text-sm text-gray-600">
                 Don&apos;t have an account?{" "}
                 <Link
-                  href="/signup"
+                  href="/register"
                   className="font-medium text-[#333234] hover:text-black hover:underline"
                 >
                   Sign up
