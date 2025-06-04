@@ -18,7 +18,7 @@ export async function POST(req:NextRequest){
 
   //  console.log("yaha tak chal rha kya ?")
     const existingUser = await User.findOne({email});
-    console.log(existingUser);
+    // console.log(existingUser);
 
   
    if(existingUser){

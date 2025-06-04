@@ -37,7 +37,7 @@ export const fetchUserData = createAsyncThunk(
         withCredentials: true,
       });
 
-      console.log("response in fetchUserData --> ", response);
+      // console.log("response in fetchUserData --> ", response);
       return response.data;
     } catch (error: any) {
       console.log("error in fetchUserData --> ", error);
@@ -54,7 +54,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.userData = action.payload;
       state.loading = false;
-      console.log("action Payload in login --> ", action.payload);
+      // console.log("action Payload in login --> ", action.payload);
     },
 
     logout: (state) => {
@@ -71,7 +71,7 @@ const authSlice = createSlice({
       .addCase(fetchUserData.pending, (state) => {
         state.loading = true;
         state.error = null;
-        console.log("fetching user data in pending state");
+        // console.log("fetching user data in pending state");
       })
       .addCase(
         fetchUserData.fulfilled,
@@ -79,7 +79,7 @@ const authSlice = createSlice({
           state.loading = false;
           state.isLoggedIn = true;
           state.userData = action.payload;
-          console.log("fetching user data in fulfilled state", action.payload);
+          // console.log("fetching user data in fulfilled state", action.payload);
         }
       )
       .addCase(
@@ -88,7 +88,7 @@ const authSlice = createSlice({
           state.loading = false;
           state.isLoggedIn = false;
           state.error = action.payload as string;
-          console.log("fetching user data in rejected state");
+          // console.log("fetching user data in rejected state");
         }
       );
   },

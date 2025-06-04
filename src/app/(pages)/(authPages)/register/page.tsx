@@ -38,8 +38,8 @@ export default function RegisterPage() {
     try {
       const response = await axios.post("/api/auth/register", data);
 
-      console.log("response in register page --> ", response);
-
+      // console.log("response in register page --> ", response);
+      
       if (response.data.success) {
         console.log("User registered successfully");
       }

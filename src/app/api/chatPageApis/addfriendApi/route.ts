@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { senderId, receiverId } = await req.json();
-    console.log("this is sender and receiver",senderId,receiverId);
+    // console.log("this is sender and receiver",senderId,receiverId);
 
 
     if (!senderId || !receiverId) {
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       }, { status: 400 });
     }
 
-    console.log("yaha tak chal rha kya code -check 1")
+    // console.log("yaha tak chal rha kya code -check 1")
 
     // Check if they are already friends
     const existingFriendship = await Friend.findOne({
@@ -43,8 +43,8 @@ export async function POST(req: Request) {
       ],
     });
 
-    console.log("this is existingfriendship ->",existingFriendship)
-    console.log("yaha tak chal rha kya code -check 2")
+    // console.log("this is existingfriendship ->",existingFriendship)
+    // console.log("yaha tak chal rha kya code -check 2")
 
     if (existingFriendship) {
       return ApiError("Users are already friends");

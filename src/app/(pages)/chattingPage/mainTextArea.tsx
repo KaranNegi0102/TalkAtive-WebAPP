@@ -16,7 +16,28 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
   const { sendMessage, messages } = useSocket();
   const { userData } = useAppSelector((state: any) => state.auth);
 
-  console.log("this is selectedFriend ", selectedFriend);
+  // console.log("this is selectedFriend ", selectedFriend);
+
+  // Function to format message with 50-word limit per line
+  const formatMessage = (text: string) => {
+    const words = text.split(" ");
+    const lines = [];
+    let currentLine = [];
+
+    for (const word of words) {
+      currentLine.push(word);
+      if (currentLine.length >= 30) {
+        lines.push(currentLine.join(" "));
+        currentLine = [];
+      }
+    }
+
+    if (currentLine.length > 0) {
+      lines.push(currentLine.join(" "));
+    }
+
+    return lines.join("\n");
+  };
 
   // Filter messages for current chat
   const chatMessages = messages.filter(
@@ -101,8 +122,10 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
                         : "bg-[#5c2503] text-white"
                     }`}
                   >
-                    <p>{msg.message}</p>
-                    <span className="text-xs  opacity-70">
+                    <p className="whitespace-pre-wrap break-words">
+                      {formatMessage(msg.message)}
+                    </p>
+                    <span className="text-xs opacity-70 block mt-1">
                       {new Date(msg.timestamp).toLocaleTimeString()}
                     </span>
                   </div>
@@ -118,10 +141,7 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
         </div>
 
         {/* input box for the message */}
-        <form
-          onSubmit={handleSendMessage}
-          className="py-4 "
-        >
+        <form onSubmit={handleSendMessage} className="py-4 ">
           <div className="flex gap-2">
             <input
               type="text"

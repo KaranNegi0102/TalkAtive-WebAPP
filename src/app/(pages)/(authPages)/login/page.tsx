@@ -33,16 +33,16 @@ export default function LoginPage() {
     try {
       const response = await axios.post("/api/auth/login", data);
 
-      console.log("this is response in login page", response);
+      // console.log("this is response in login page", response);
 
       if (response.data.success) {
         const userData = response.data.data.userData;
-        console.log("this is userId", userData.userId);
+        // console.log("this is userId", userData.userId);
 
         // Emit user connected event to socket server
         if (socket) {
           socket.emit("user_connected", { userId: userData.userId });
-          console.log("Socket connected for user:", userData.userId);
+          // console.log("Socket connected for user:", userData.userId);
         }
 
         // Redirect to home page or dashboard

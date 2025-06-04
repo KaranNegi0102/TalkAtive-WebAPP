@@ -17,7 +17,7 @@ export default function TestingPage() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("/api/chatPageApis/getUsers");
-        console.log("this is response in testing page",response)
+        // console.log("this is response in testing page",response)
 
         if (response.data.success) {
           setUsers(response.data.data);

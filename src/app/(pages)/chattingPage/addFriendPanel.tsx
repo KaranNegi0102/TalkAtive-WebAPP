@@ -21,7 +21,7 @@ export default function AddFriendPanel() {
   const [users, setUsers] = useState<User[]>([]);
 
   const { userData } = useAppSelector((state: any) => state.auth); //#f7f7f7 #333234
-  console.log("this is userData in addFriend panel", userData.data);
+  // console.log("this is userData in addFriend panel", userData.data);
 
   //getting the users
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function AddFriendPanel() {
         const response = await axios.get(
           `/api/chatPageApis/getUsers?userId=${userData?.data?.userId}`
         );
-        console.log("this is reponse ", response);
+        // console.log("this is reponse ", response);
 
         if (response.data.success) {
           setUsers(response.data.data);
@@ -73,7 +73,7 @@ export default function AddFriendPanel() {
         senderId: userData?.data?.userId,
         receiverId: receiverId,
       });
-      console.log("this is response->", response);
+      // console.log("this is response->", response);
 
       if (response.data.success) {
         alert("Friend request sent successfully!");
@@ -177,7 +177,7 @@ export default function AddFriendPanel() {
                   <button
                     className="px-4 py-2 bg-[#333234] cursor-pointer text-white rounded-md hover:bg-black transition-colors"
                     onClick={() => {
-                      console.log("Add friend:", user._id);
+                      // console.log("Add friend:", user._id);
                       addFriend(user._id);
                     }}
                   >

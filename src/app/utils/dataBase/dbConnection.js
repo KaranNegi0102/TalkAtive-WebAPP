@@ -6,7 +6,7 @@ dotenv.config();
 
 export default async function connectionDB() {
   const dbUrl = process.env.DATABASE_URL;
-  console.log("this is dburl in mongodb",dbUrl);
+  // console.log("this is dburl in mongodb",dbUrl);
 
   if (!dbUrl) {
     console.error("DATABASE_URL is not defined in environment variables");

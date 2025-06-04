@@ -11,14 +11,14 @@ export async function POST(req:NextRequest){
     await connectionDB();
 
     const {email,password} = await req.json();
-    console.log(email,password)
+    // console.log(email,password)
     if(!email || !password){
       return ApiError("All fields are required");
     }
 
 
-    const existingUser = await User.findOne({email});
-    console.log(existingUser)
+    const existingUser = await User.findOne({email,password});
+    // console.log(existingUser)
 
 
     if(!existingUser){
