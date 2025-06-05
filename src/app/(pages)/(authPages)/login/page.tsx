@@ -49,22 +49,21 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen bg-gray-50"
+      className="min-h-screen bg-gray-50 flex flex-col"
       style={{
         backgroundImage: `url(${image.src})`,
         backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <Navbar />
 
-      <div className="flex items-center justify-center px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md p-6 sm:p-9 rounded-xl shadow-xl space-y-6 sm:space-y-8 relative bg-white/90 backdrop-blur-sm">
+      <div className="flex-1 flex items-center justify-center px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md p-6 sm:p-9 rounded-xl shadow-xl space-y-8 sm:space-y-8 relative bg-white/90 backdrop-blur-sm">
           <div>
-            <h2 className="text-center text-sm sm:text-3xl font-bold tracking-tight text-[#333234]">
+            <h2 className="text-center text-3xl sm:text-3xl font-bold tracking-tight text-[#333234]">
               Welcome Back Amigos !!
             </h2>
-            <p className="text-center text-xs sm:text-sm italic mt-2 text-[#333234]">
+            <p className="text-center text-md sm:text-sm italic mt-2 text-[#333234]">
               login to your account
             </p>
           </div>
@@ -77,14 +76,14 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs sm:text-sm  font-medium text-gray-700"
+                  className="block text-md ml-2 sm:text-sm  font-medium text-gray-700"
                 >
                   Email address
                 </label>
                 <input
                   id="email"
                   type="email"
-                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
+                  className="mt-1 sm:mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 text-md sm:text-base text-gray-900 placeholder-gray-500 focus:border-[#333234] focus:outline-none focus:ring-[#333234]"
                   placeholder="Enter your email"
                   {...register("email", {
                     required: "Email is Required",
@@ -104,7 +103,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-xs sm:text-sm font-medium text-gray-700"
+                  className="block text-md ml-2 sm:text-sm font-medium text-gray-700"
                 >
                   Password
                 </label>
@@ -129,12 +128,12 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="text-center mt-4">
-              <p className="text-xs sm:text-sm text-gray-600">
+            <div className="text-center mt-6 mb-6">
+              <p className="text-md sm:text-sm text-gray-600">
                 Don&apos;t have an account?{" "}
                 <Link
                   href="/register"
-                  className="font-medium text-xs sm:text-sm text-[#333234] hover:text-black hover:underline"
+                  className="font-medium text-md sm:text-sm text-[#333234] hover:text-black hover:underline"
                 >
                   Sign up
                 </Link>
@@ -144,7 +143,7 @@ export default function LoginPage() {
             <div>
               <button
                 type="submit"
-                className="group relative flex text-xs sm:text-sm w-full justify-center rounded-md border border-transparent bg-[#333234] px-4 py-2  font-medium text-white hover:bg-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#333234] focus:ring-offset-2 transition-colors duration-200"
+                className="group relative flex text-xl italic sm:text-sm w-full justify-center rounded-md border border-transparent bg-[#333234] px-4 py-2  font-medium text-white hover:bg-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#333234] focus:ring-offset-2 transition-colors duration-200"
               >
                 Sign in
               </button>

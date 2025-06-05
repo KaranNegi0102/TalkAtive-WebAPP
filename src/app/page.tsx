@@ -1,12 +1,67 @@
+"use client";
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import image2 from "../../public/front2.jpg";
+import { useAppSelector } from "@/app/hooks/hooks";
 
 export default function Home() {
+  const { isLoggedIn } = useAppSelector((state: any) => state.auth);
+
   return (
     <div>
       <Navbar />
+
+      {/* Video Hero Section */}
+      <div className="relative w-full h-screen hidden md:block">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        >
+          <source src="/video2.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0">
+          <div className="h-full flex flex-col items-center justify-center text-center px-4">
+            <h1 className="text-5xl text-shadow-[2px_2px_0_rgb(0,0,0)] md:text-6xl font-bold text-white mb-6 animate-fade-in">
+              Welcome to TalkAtive
+            </h1>
+            <p className="text-xl md:text-2xl  text-gray-800 max-w-2xl mb-8 animate-fade-in-delay">
+              Experience seamless video calls and real-time chat in one place
+            </p>
+            <div className="flex gap-4 animate-fade-in-delay-2">
+              {isLoggedIn ? (
+                <Link
+                  href="/chattingPage"
+                  className="px-8 py-3 bg-[#333234] text-white rounded-md font-semibold hover:text-black hover:bg-gray-200 transition-colors"
+                >
+                  Start Chatting
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/register"
+                    className="px-8 py-3 bg-[#333234] text-white rounded-full font-semibold hover:bg-gray-200 hover:text-black transition-colors"
+                  >
+                    Get Started
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="px-8 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="max-w-7xl bg-[#f7f7f7] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 pt-20 md:pt-27 relative min-h-screen">
         <div
@@ -28,19 +83,30 @@ export default function Home() {
               communication. Join now and start chatting with friends, family,
               and colleagues.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:space-x-4">
-              <Link
-                href="/chattingPage"
-                className="bg-[#333234] hover:bg-black text-white font-semibold py-2 md:py-3 px-6 rounded-lg shadow-md transition duration-200 text-sm md:text-base"
-              >
-                Get Started
-              </Link>
-              <Link
-                href="/login"
-                className="border border-[#333234] text-[#333234] hover:bg-blue-50 font-semibold py-2 md:py-3 px-6 rounded-lg transition duration-200 text-sm md:text-base"
-              >
-                Login
-              </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:space-x-4 sm:hidden">
+              {isLoggedIn ? (
+                <Link
+                  href="/chattingPage"
+                  className="bg-[#333234] hover:bg-black text-white font-semibold py-2 md:py-3 px-4 sm:px-6 rounded-lg shadow-md transition duration-200 text-sm md:text-base w-[140px] sm:w-auto text-center"
+                >
+                  Start Chatting
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/chattingPage"
+                    className="bg-[#333234] hover:bg-black text-white font-semibold py-2 md:py-3 px-4 sm:px-6 rounded-lg shadow-md transition duration-200 text-sm md:text-base w-[140px] sm:w-auto text-center"
+                  >
+                    Get Started
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="border border-[#333234] text-[#333234] hover:bg-blue-50 font-semibold py-2 md:py-3 px-4 sm:px-6 rounded-lg transition duration-200 text-sm md:text-base w-[140px] sm:w-auto text-center"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 

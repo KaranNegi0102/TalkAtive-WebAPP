@@ -60,7 +60,7 @@ export default function Navbar() {
           socket.emit("user_disconnected", { userId: userData.data.userId });
           socket.disconnect();
         }
-        router.push("/login");
+        router.push("/");
       }
     } catch (error) {
       console.error("Error during logout:", error);
@@ -77,12 +77,12 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 ">
             <Link
               href="/"
               className={`text-2xl font-bold ${
-                isHomePage ? "text-[#333234]" : "text-white"
-              } hover:text-white`}
+                isHomePage ? "text-[#333234] text-shadow-[2px_2px_0_rgb(255,255,255)]" : "text-white"
+              } hover:text-black text-shadow-[2px_2px_0_rgb(0,0,0)]`}
             >
               TalkAtive
             </Link>
@@ -99,7 +99,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/about"
+              href="/aboutus"
               className={`${
                 isHomePage ? "text-[#333234]" : "text-white"
               } hover:text-[#ddedcff5] font-medium`}
@@ -187,7 +187,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/about"
+              href="/aboutus"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isHomePage ? "text-[#333234] text-xs" : "text-white"
               } hover:bg-gray-700 hover:text-white`}
