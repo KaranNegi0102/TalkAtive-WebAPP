@@ -19,9 +19,6 @@
 - 💬 **Real-Time Text Messaging**  
   Instant 1:1 messaging with live updates via Socket.IO.
 
-- 🎥 **Video Calling**  
-  Peer-to-peer video calling functionality using WebRTC.
-
 - 🧑‍🤝‍🧑 **Friend System**  
   Send, accept, and manage friend requests.
 
@@ -40,6 +37,9 @@
 ---
 
 ## ✅ TODO / Upcoming Features
+
+- 🎥 **Video Calling**  
+  Peer-to-peer video calling functionality using WebRTC.
 
 - ⏳ **Group Chats**  
   Ability to create and manage group conversations.
