@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+💬 ## TalkAtive
+TalkAtive is a real-time communication web application designed for seamless text and video chat between users. Built with Next.js, Redux Toolkit, and Socket.IO, it provides an intuitive and responsive chatting experience with a modern user interface.
 
-## Getting Started
+🚀 Live Demo
+Open http://talkative.vercel.app in your browser to try it out.
 
-First, run the development server:
+Credentials - (demo@gmail.com, demo@123)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✨ Features
+💬 Real-Time Text Messaging
+Instant 1:1 messaging with live updates via Socket.IO.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🎥 Video Calling
+Peer-to-peer video calling functionality using WebRTC.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🧑‍🤝‍🧑 Friend System
+Send, accept, and manage friend requests.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🔍 User Search
+Search for users to chat or send friend requests.
 
-## Learn More
+🔐 Authentication System
+Secure login and registration with JWT.
 
-To learn more about Next.js, take a look at the following resources:
+📦 State Management (Redux)
+App-wide state (auth, socket, messages, friends) managed with Redux Toolkit.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📂 Redux slices located in the /redux directory.
+🧠 Store is set up with Redux DevTools and middleware for async actions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+✅ TODO / Upcoming Features
+⏳ Group Chats
+Ability to create and manage group conversations.
 
-## Deploy on Vercel
+⏳ Media Sharing
+Send images, files, and voice notes in chat.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+⏳ Message Reactions & Read Receipts
+Interactive features for enhanced communication.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+⏳ Notification System
+Real-time notifications for friend requests and messages.
+
+⏳ Responsive Design + PWA Support
+Full mobile responsiveness and installable web app support.
