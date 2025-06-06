@@ -83,9 +83,9 @@ export default function Navbar() {
               href="/"
               className={`text-2xl font-bold ${
                 isHomePage
-                  ? "text-[#333234] text-shadow-[2px_2px_0_rgb(255,255,255)]"
+                  ? "text-[#333234] hover:text-white hover:text-shadow-[2px_2px_0_rgb(0,0,0)] text-shadow-[2px_2px_0_rgb(255,255,255)]"
                   : "text-white"
-              } hover:text-black text-shadow-[2px_2px_0_rgb(0,0,0)]`}
+              }  text-shadow-[2px_2px_0_rgb(0,0,0)]`}
             >
               TalkAtive
             </Link>
