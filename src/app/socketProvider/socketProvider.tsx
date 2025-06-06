@@ -85,7 +85,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Listen for user status changes
     newSocket.on("user_status_changed", ({ userId, status }) => {
-      console.log("Status changed for user:", userId, "to:", status);
+      // console.log("Status changed for user:", userId, "to:", status);
       setUserStatus((prev) => ({
         ...prev,
         [userId]: status,
@@ -94,13 +94,13 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Handle incoming messages
     newSocket.on("receive_message", ({ message }) => {
-      console.log("Received message:", message);
+      // console.log("Received message:", message);
       setMessages((prev) => [...prev, message]);
     });
 
     // Handle message sent confirmation
     newSocket.on("message_sent", ({ message }) => {
-      console.log("Message sent:", message);
+      // console.log("Message sent:", message);
       setMessages((prev) => [...prev, message]);
     });
 

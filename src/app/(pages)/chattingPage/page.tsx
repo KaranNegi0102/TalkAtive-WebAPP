@@ -7,6 +7,7 @@ import {
   Video,
   MessageCircle,
   User,
+  ArrowRight,
   Bell,
 } from "lucide-react";
 import Navbar from "@/components/navbar";
@@ -16,7 +17,7 @@ import VideoChatPanel from "./videoChatPanel";
 import UserProfileDetails from "@/components/chattingPageComponents/UserProfileDetails";
 import RequestNotification from "./requestNotification";
 import MainTextArea from "./mainTextArea";
-import { useAppDispatch, useAppSelector } from "@/app/hooks/hooks";
+import { useAppDispatch} from "@/app/hooks/hooks";
 import { fetchUserData } from "@/app/redux/slices/authSlice";
 
 type SidebarTab =
@@ -37,10 +38,9 @@ const ChattingPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SidebarTab | null>("friends");
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const [requestCount, setRequestCount] = useState(0);
+  const [showSidebar, setShowSidebar] = useState(false);
   const dispatch = useAppDispatch();
-
-  const { userData } = useAppSelector((state: any) => state.auth);
-  console.log(userData);
+ 
 
   // Navigation configuration
   const navigationButtons: NavigationButton[] = useMemo(
@@ -75,7 +75,6 @@ const ChattingPage: React.FC = () => {
         label: "Video Chat",
         ariaLabel: "Start video chat",
       },
-      
     ],
     []
   );
@@ -86,6 +85,10 @@ const ChattingPage: React.FC = () => {
 
   const handleFriendSelect = useCallback((friend: Friend) => {
     setSelectedFriend(friend);
+    // Hide sidebar on mobile when friend is selected
+    if (window.innerWidth < 768) {
+      setShowSidebar(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -117,21 +120,34 @@ const ChattingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar />
+      <div className="sticky top-0 z-[100]">
+        <Navbar />
+      </div>
 
-      <main className="flex-1  flex overflow-hidden">
+      <main className="flex-1 flex overflow-hidden h-[calc(100vh-64px)] relative">
+        {/* Mobile Toggle Button - Only show when no friend is selected */}
+        {!selectedFriend && (
+          <button
+            onClick={() => setShowSidebar(!showSidebar)}
+            className="md:hidden fixed bottom-20 left-3 z-[90] bg-[#333234] text-white p-3 rounded-full shadow-lg"
+            aria-label="Toggle sidebar"
+          >
+            <ArrowRight className="h-6 w-6" />
+          </button>
+        )}
+
         {/* Sidebar Container */}
-        <aside className="flex bg-white shadow-lg">
+        <aside
+          className={`flex bg-white shadow-lg fixed md:relative h-[calc(100vh-64px)] transition-transform duration-300 ease-in-out ${
+            showSidebar ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          } z-[80]`}
+        >
           {/* Vertical Navigation */}
           <nav
-            className="w-16 bg-[#333234] flex flex-col items-center py-4 gap-2"
+            className="w-16 bg-[#333234] flex flex-col items-center py-4 gap-2 h-full"
             role="navigation"
             aria-label="Main navigation"
           >
-            {/* <div className="mb-4">
-              <RequestNotification />
-            </div> */}
-
             {navigationButtons.map(({ id, icon: Icon, label, ariaLabel }) => (
               <button
                 key={id}
@@ -171,12 +187,12 @@ const ChattingPage: React.FC = () => {
           {/* Expandable Panel */}
           <div
             className={`
-            transition-all duration-300 ease-in-out overflow-hidden
+            transition-all duration-300 ease-in-out overflow-hidden h-full
             ${activeTab ? "w-80 border-r border-gray-200" : "w-0"}
           `}
           >
             {activeTab && (
-              <div className="w-80 h-full bg-[#f4eded] " > 
+              <div className="w-80 h-full bg-[#f4eded] overflow-y-auto">
                 {renderSidebarContent()}
               </div>
             )}
@@ -185,13 +201,18 @@ const ChattingPage: React.FC = () => {
 
         {/* Main Chat Area */}
         <section
-          className="flex-1 flex flex-col bg-white"
+          className="flex-1 flex flex-col bg-white h-[calc(100vh-64px)] overflow-hidden"
           aria-label="Chat area"
         >
           {selectedFriend ? (
-            <MainTextArea selectedFriend={selectedFriend} />
+            <div className="h-full">
+              <MainTextArea
+                selectedFriend={selectedFriend}
+                onBackClick={() => setShowSidebar(true)}
+              />
+            </div>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-gray-500">
+            <div className="h-full flex items-center justify-center text-gray-500">
               <div className="text-center space-y-4">
                 <MessageCircle className="h-16 w-16 mx-auto text-gray-300" />
                 <div>
@@ -206,6 +227,14 @@ const ChattingPage: React.FC = () => {
             </div>
           )}
         </section>
+
+        {/* Mobile Overlay */}
+        {showSidebar && (
+          <div
+            className="fixed inset-0 bg-[#333234] bg-opacity-50 md:hidden z-30"
+            onClick={() => setShowSidebar(false)}
+          />
+        )}
       </main>
     </div>
   );

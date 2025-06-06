@@ -9,6 +9,7 @@ import { logout, fetchUserData } from "@/app/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import { useSocket } from "@/app/socketProvider/socketProvider";
 import axios from "axios";
+import { Home, Info, LogOut, LogIn, UserPlus } from "lucide-react";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -81,7 +82,9 @@ export default function Navbar() {
             <Link
               href="/"
               className={`text-2xl font-bold ${
-                isHomePage ? "text-[#333234] text-shadow-[2px_2px_0_rgb(255,255,255)]" : "text-white"
+                isHomePage
+                  ? "text-[#333234] text-shadow-[2px_2px_0_rgb(255,255,255)]"
+                  : "text-white"
               } hover:text-black text-shadow-[2px_2px_0_rgb(0,0,0)]`}
             >
               TalkAtive
@@ -177,49 +180,54 @@ export default function Navbar() {
             isMobileMenuOpen ? "block" : "hidden"
           } transition-all duration-300 ease-in-out`}
         >
-          <div className="px-2 ">
+          <div className="px-2 py-3 space-y-4">
             <Link
               href="/"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isHomePage ? "text-[#333234] text-xs" : "text-white"
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
+                isHomePage ? "text-[#333234]" : "text-white"
               } hover:bg-gray-700 hover:text-white`}
             >
-              Home
+              <Home className="h-5 w-5" />
+              <span>Home</span>
             </Link>
             <Link
               href="/aboutus"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isHomePage ? "text-[#333234] text-xs" : "text-white"
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
+                isHomePage ? "text-[#333234]" : "text-white"
               } hover:bg-gray-700 hover:text-white`}
             >
-              About Us
+              <Info className="h-5 w-5" />
+              <span>About Us</span>
             </Link>
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium ${
-                  isHomePage ? "text-[#333234] text-xs" : "text-white"
+                className={`flex items-center gap-2 w-full px-3 py-2 rounded-md text-base font-medium ${
+                  isHomePage ? "text-[#333234]" : "text-white"
                 } hover:bg-gray-700 hover:text-red-700`}
               >
-                Logout
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
               </button>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    isHomePage ? "text-[#333234] text-xs" : "text-white"
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
+                    isHomePage ? "text-[#333234]" : "text-white"
                   } hover:bg-gray-700 hover:text-white`}
                 >
-                  Login
+                  <LogIn className="h-5 w-5" />
+                  <span>Login</span>
                 </Link>
                 <Link
                   href="/register"
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    isHomePage ? "text-[#333234] text-xs" : "text-white"
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
+                    isHomePage ? "text-[#333234]" : "text-white"
                   } hover:bg-gray-700 hover:text-white`}
                 >
-                  Register
+                  <UserPlus className="h-5 w-5" />
+                  <span>Register</span>
                 </Link>
               </>
             )}

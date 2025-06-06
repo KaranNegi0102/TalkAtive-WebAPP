@@ -1,13 +1,13 @@
 import {NextResponse , NextRequest} from "next/server";
 
 const protectedRoutes = ["/chattingPage"];
-const publicRoutes = ["/login", "/register"];
+const publicRoutes = ["/aboutus","/login","/register"];
 
 export function middleware(req:NextRequest){
   const token = req.cookies.get("AuthToken")?.value;
 
   if(!token && protectedRoutes.includes(req.nextUrl.pathname)){
-    return NextResponse.redirect(new URL("/login",req.url));
+    return NextResponse.redirect(new URL("/",req.url));
   }
   if(token && publicRoutes.includes(req.nextUrl.pathname)){
     return NextResponse.redirect(new URL("/chattingPage",req.url));
@@ -17,5 +17,5 @@ export function middleware(req:NextRequest){
 }
 
 export const config ={
-  matcher: ["/chattingPage","/login","/register"],
+  matcher: ["/chattingPage","/login","/register","/aboutus"],
 }

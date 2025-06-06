@@ -81,7 +81,7 @@ export default function FriendsPanel({
   return (
     <div className="w-full p-3 border-r-3 border-gray-500 h-full flex flex-col relative">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mt-1" 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mt-1"
         style={{
           backgroundImage: `url(${image.src})`,
         }}

@@ -5,12 +5,17 @@ import coffee from "../../../../public/35184.jpg";
 import { Friend } from "./friendsPanel";
 import { useSocket } from "@/app/socketProvider/socketProvider";
 import { useAppSelector } from "@/app/hooks/hooks";
+import { ArrowLeft } from "lucide-react";
 
 interface MainTextAreaProps {
   selectedFriend: Friend | null;
+  onBackClick?: () => void;
 }
 
-export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
+export default function MainTextArea({
+  selectedFriend,
+  onBackClick,
+}: MainTextAreaProps) {
   const [messageInput, setMessageInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { sendMessage, messages } = useSocket();
@@ -62,16 +67,23 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
   };
 
   return (
-    <div className="flex-1 bg-[#f7f7f7] p-2  rounded-md flex flex-col h-full relative">
+    <div className="flex-1 bg-[#f7f7f7] p-2 rounded-md flex flex-col h-full relative">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
         style={{
           backgroundImage: `url(${coffee.src})`,
         }}
       />
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="flex shadow-xl rounded-md bg-[#333234] items-center p-2 gap-2 justify-between">
-          <div className="flex items-center  gap-2">
+      <div className="relative z-2 flex flex-col h-full">
+        <div className="flex shadow-xl rounded-md bg-[#333234] items-center p-2 gap-2 justify-between mt-2 md:mt-0">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onBackClick}
+              className="md:hidden p-1 hover:bg-gray-700 rounded-full transition-colors"
+              aria-label="Back to sidebar"
+            >
+              <ArrowLeft className="h-6 w-6 text-white" />
+            </button>
             <Image
               src={profile}
               alt={selectedFriend?.name || "Select a friend"}
@@ -103,7 +115,7 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
 
         {/* //#f7f7f7 #333234 */}
         {/* chatting area where the messages will be shown */}
-        <div className="flex-1  overflow-y-auto px-2 mt-4">
+        <div className="flex-1  overflow-y-auto px-2  mt-4">
           {selectedFriend ? (
             <div className="flex  flex-col gap-2">
               {chatMessages.map((msg) => (
@@ -141,7 +153,7 @@ export default function MainTextArea({ selectedFriend }: MainTextAreaProps) {
         </div>
 
         {/* input box for the message */}
-        <form onSubmit={handleSendMessage} className="py-4 ">
+        <form onSubmit={handleSendMessage} className="py-1 ">
           <div className="flex gap-2">
             <input
               type="text"
