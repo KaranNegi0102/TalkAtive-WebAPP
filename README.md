@@ -9,8 +9,8 @@
 [🔗 Open TalkAtive](http://talkative.vercel.app) in your browser to try it out.
 
 **Demo Credentials**  
-`Email:` demo@gmail.com  
-`Password:` demo@123
+`Email:` admin@gmail.com  
+`Password:` admin@123
 
 ---
 
